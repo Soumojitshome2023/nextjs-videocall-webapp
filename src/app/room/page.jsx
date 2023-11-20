@@ -1,8 +1,10 @@
 "use client"
 import React, { useEffect, useCallback, useState } from "react";
 import ReactPlayer from "react-player";
-import peer from "../../../service/peer";
-import { useSocket } from "../../../context/SocketProvider";
+import peer from "../../service/peer";
+import { useSocket } from "../../context/SocketProvider";
+import RoomPageDesign from '@/components/RoomPageDesign'
+import room from '../../style/Room.module.css'
 
 const RoomPage = () => {
   const socket = useSocket();
@@ -110,36 +112,67 @@ const RoomPage = () => {
     handleNegoNeedFinal,
   ]);
 
+
   return (
     <div>
-      <h1>Room Page</h1>
-      <h4>{remoteSocketId ? "Connected" : "No one in room"}</h4>
-      {myStream && <button onClick={sendStreams}>Send Stream</button>}
-      {remoteSocketId && <button onClick={handleCallUser}>CALL</button>}
-      {myStream && (
-        <>
-          <h1>My Stream</h1>
-          <ReactPlayer
-            playing
-            muted
-            height="500px"
-            width="500px"
-            url={myStream}
-          />
-        </>
-      )}
-      {remoteStream && (
-        <>
-          <h1>Remote Stream</h1>
-          <ReactPlayer
-            playing
-            
-            height="500px"
-            width="500px"
-            url={remoteStream}
-          />
-        </>
-      )}
+      {/* <RoomPageDesign /> */}
+      {/* <h1>Room Page</h1> */}
+      {/* <h4>{remoteSocketId ? "Connected" : "No one in room"}</h4> */}
+
+      <div className={room.Main}>
+
+        <div className={room.buttons}>
+
+          {myStream &&
+            <button className={room.button} onClick={sendStreams}>
+              <span className={room.button_lg}>
+                <span className={room.button_sl}></span>
+                <span className={room.button_text}>Send Stream</span>
+              </span>
+            </button>
+          }
+          {remoteSocketId &&
+            <button className={room.button} onClick={handleCallUser}>
+              <span className={room.button_lg}>
+                <span className={room.button_sl}></span>
+                <span className={room.button_text}>CALL</span>
+              </span>
+            </button>
+          }
+        </div>
+        {/* <div>RoomPage</div> */}
+        <div className={room.remotebox}>
+          {remoteStream && (
+            <>
+              {/* <h1>Remote Stream</h1> */}
+              <ReactPlayer
+                playing
+
+                height="100%"
+                width="100%"
+                url={remoteStream}
+              />
+            </>
+          )}
+
+        </div>
+
+        <div className={room.currentbox}>
+          {myStream && (
+            <>
+              {/* <h1>My Stream</h1> */}
+              <ReactPlayer
+                playing
+                muted
+                height="100%"
+                width="100%"
+                url={myStream}
+              />
+            </>
+          )}
+        </div>
+
+      </div>
     </div>
   );
 };
