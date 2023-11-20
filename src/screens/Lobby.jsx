@@ -50,8 +50,8 @@ const LobbyScreen = () => {
     (data) => {
       const { email, room } = data;
       // navigate(`/room/${room}`);
-      // router.push(`/room/${room}`);
-      router.push('/room');
+      router.push(`/room/${room}`);
+      // router.push('/room');
     },
     [router]
   );

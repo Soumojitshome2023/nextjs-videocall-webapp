@@ -1,9 +1,9 @@
 "use client"
 import React, { useEffect, useCallback, useState } from "react";
 import ReactPlayer from "react-player";
-import peer from "../../service/peer";
-import { useSocket } from "../../context/SocketProvider";
-import RoomPageDesign from '@/components/RoomPageDesign'
+import peer from "../../../service/peer";
+import { useSocket } from "../../../context/SocketProvider";
+// import RoomPageDesign from '@/components/RoomPageDesign'
 import room from '../../style/Room.module.css'
 
 const RoomPage = () => {
