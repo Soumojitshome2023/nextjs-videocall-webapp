@@ -4,7 +4,7 @@ import ReactPlayer from "react-player";
 import peer from "../../../service/peer";
 import { useSocket } from "../../../context/SocketProvider";
 // import RoomPageDesign from '@/components/RoomPageDesign'
-import room from '../../style/Room.module.css'
+import room from '../../../style/Room.module.css'
 
 const RoomPage = () => {
   const socket = useSocket();
