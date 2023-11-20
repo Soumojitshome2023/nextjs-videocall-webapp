@@ -1,3 +1,4 @@
+"use client"
 import React, { useState, useCallback, useEffect } from "react";
 import { useSocket } from "../context/SocketProvider";
 // import { useNavigate } from "react-router-dom";
