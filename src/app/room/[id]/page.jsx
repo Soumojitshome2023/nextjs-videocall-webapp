@@ -5,58 +5,93 @@ import peer from "../../../service/peer";
 import { useSocket } from "../../../context/SocketProvider";
 // import RoomPageDesign from '@/components/RoomPageDesign'
 import room from '../../../style/Room.module.css'
+import { useRouter } from "next/navigation";
 
 const RoomPage = () => {
   const socket = useSocket();
   const [remoteSocketId, setRemoteSocketId] = useState(null);
   const [myStream, setMyStream] = useState();
   const [remoteStream, setRemoteStream] = useState();
+  const router = useRouter();
 
+
+
+  // ==================================== Join ====================================
   const handleUserJoined = useCallback(({ email, id }) => {
     console.log(`Email ${email} joined room`);
     setRemoteSocketId(id);
   }, []);
 
+  // ==================================== Call ====================================
   const handleCallUser = useCallback(async () => {
-    const stream = await navigator.mediaDevices.getUserMedia({
-      audio: true,
-      video: true,
-    });
+    // const stream = await navigator.mediaDevices.getUserMedia({
+    //   audio: true,
+    //   video: true,
+    // });
+    // setMyStream(stream);
     const offer = await peer.getOffer();
     socket.emit("user:call", { to: remoteSocketId, offer });
-    setMyStream(stream);
   }, [remoteSocketId, socket]);
 
+  // ==================================== Incomming ==================================== 
   const handleIncommingCall = useCallback(
     async ({ from, offer }) => {
       setRemoteSocketId(from);
-      const stream = await navigator.mediaDevices.getUserMedia({
-        audio: true,
-        video: true,
-      });
-      setMyStream(stream);
+      // const stream = await navigator.mediaDevices.getUserMedia({
+      //   audio: true,
+      //   video: true,
+      // });
+      // setMyStream(stream);
       console.log(`Incoming Call`, from, offer);
       const ans = await peer.getAnswer(offer);
       socket.emit("call:accepted", { to: from, ans });
+      // sendStreams();
     },
     [socket]
   );
 
-  const sendStreams = useCallback(() => {
-    for (const track of myStream.getTracks()) {
-      peer.peer.addTrack(track, myStream);
+  // ==================================== Send Stream ====================================
+  const sendStreams = async () => {
+    console.log("Send Streams")
+    if (remoteSocketId) {
+      handleCallUser()
     }
-  }, [myStream]);
+    const stream = await navigator.mediaDevices.getUserMedia({
+      audio: true,
+      video: true,
+    });
+    setMyStream(stream);
 
+    if (stream) {
+      for (const track of stream.getTracks()) {
+        peer.peer.addTrack(track, stream);
+      }
+    }
+  }
+
+
+  const endStream = async () => {
+    const tracks = myStream.getTracks();
+
+    tracks.forEach((track) => {
+      track.stop();
+    });
+
+    setMyStream(null);
+    router.push('/');
+  }
+
+  // ==================================== Accepted ====================================
   const handleCallAccepted = useCallback(
     ({ from, ans }) => {
       peer.setLocalDescription(ans);
       console.log("Call Accepted!");
-      sendStreams();
+      // sendStreams();
     },
     [sendStreams]
   );
 
+  // ========================================================================
   const handleNegoNeeded = useCallback(async () => {
     const offer = await peer.getOffer();
     socket.emit("peer:nego:needed", { offer, to: remoteSocketId });
@@ -69,6 +104,7 @@ const RoomPage = () => {
     };
   }, [handleNegoNeeded]);
 
+  // ========================================================================
   const handleNegoNeedIncomming = useCallback(
     async ({ from, offer }) => {
       const ans = await peer.getAnswer(offer);
@@ -77,9 +113,12 @@ const RoomPage = () => {
     [socket]
   );
 
+  // ========================================================================
   const handleNegoNeedFinal = useCallback(async ({ ans }) => {
     await peer.setLocalDescription(ans);
   }, []);
+
+  // ========================================================================
 
   useEffect(() => {
     peer.peer.addEventListener("track", async (ev) => {
@@ -112,6 +151,7 @@ const RoomPage = () => {
     handleNegoNeedFinal,
   ]);
 
+  // ========================================================================
 
   return (
     <div>
@@ -123,22 +163,36 @@ const RoomPage = () => {
 
         <div className={room.buttons}>
 
-          {myStream &&
-            <button className={room.button} onClick={sendStreams}>
-              <span className={room.button_lg}>
-                <span className={room.button_sl}></span>
-                <span className={room.button_text}>Send Stream</span>
-              </span>
-            </button>
-          }
+          {/* {myStream && */}
           {remoteSocketId &&
+            <>
+              {myStream ?
+                <button className={room.button} onClick={endStream}>
+                  <span className={room.button_lg}>
+                    <span className={room.button_sl}></span>
+                    <span className={room.button_text}>End Stream</span>
+                  </span>
+                </button>
+
+                :
+                <button className={room.button} onClick={sendStreams}>
+                  <span className={room.button_lg}>
+                    <span className={room.button_sl}></span>
+                    <span className={room.button_text}>Start Stream</span>
+                  </span>
+                </button>
+              }
+            </>
+          }
+          {/* } */}
+          {/* {remoteSocketId &&
             <button className={room.button} onClick={handleCallUser}>
               <span className={room.button_lg}>
                 <span className={room.button_sl}></span>
                 <span className={room.button_text}>CALL</span>
               </span>
             </button>
-          }
+          } */}
         </div>
         {/* <div>RoomPage</div> */}
         <div className={room.remotebox}>
@@ -147,10 +201,11 @@ const RoomPage = () => {
               {/* <h1>Remote Stream</h1> */}
               <ReactPlayer
                 playing
-
+                
                 height="100%"
                 width="100%"
                 url={remoteStream}
+                className={room.mirroredPlayer}
               />
             </>
           )}
@@ -167,6 +222,7 @@ const RoomPage = () => {
                 height="100%"
                 width="100%"
                 url={myStream}
+                className={room.mirroredPlayer}
               />
             </>
           )}

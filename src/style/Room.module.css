@@ -16,6 +16,11 @@
 
 }
 
+.mirroredPlayer {
+    transform: scaleX(-1);
+    /* Apply horizontal flip transformation */
+}
+
 .remotebox {
     /* border: 2px solid blue; */
     position: absolute;
@@ -185,13 +190,15 @@
 
 
 @media screen and (max-width: 800px) {
-    .remotebox{
+    .remotebox {
         width: 90%;
         height: 80%;
     }
-    .currentbox{
+
+    .currentbox {
         height: 100px;
         width: 100px;
     }
+
     /* .buttons{} */
 }
