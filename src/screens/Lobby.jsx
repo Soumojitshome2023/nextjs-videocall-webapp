@@ -3,26 +3,26 @@ import React, { useState, useCallback, useEffect } from "react";
 import { useSocket } from "../context/SocketProvider";
 // import { useNavigate } from "react-router-dom";
 import { useRouter } from "next/navigation";
-import { v4 as uuid } from "uuid";
+// import { v4 as uuid } from "uuid";
 import Regpage from "@/components/RegPage";
 
 
 const LobbyScreen = () => {
-  const [uniqueId, setUniqueId] = useState(null);
+  // const [uniqueId, setUniqueId] = useState(null);
 
-  const generateUniqueIdWithTimestamp = () => {
-    const timestamp = new Date().getTime();
-    const alphanumeric = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    const idLength = 9; // Adjust the length of the alphanumeric portion as needed
-    // let uniqueId = 'ID_' + timestamp + '_';
-    let uniqueId = '';
+  // const generateUniqueIdWithTimestamp = () => {
+  //   const timestamp = new Date().getTime();
+  //   const alphanumeric = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  //   const idLength = 9; // Adjust the length of the alphanumeric portion as needed
+  //   // let uniqueId = 'ID_' + timestamp + '_';
+  //   let uniqueId = '';
 
-    for (let i = 0; i < idLength; i++) {
-      const randomIndex = Math.floor(Math.random() * alphanumeric.length);
-      uniqueId += alphanumeric.charAt(randomIndex);
-    }
-    setUniqueId(uniqueId);
-  };
+  //   for (let i = 0; i < idLength; i++) {
+  //     const randomIndex = Math.floor(Math.random() * alphanumeric.length);
+  //     uniqueId += alphanumeric.charAt(randomIndex);
+  //   }
+  //   setUniqueId(uniqueId);
+  // };
 
   const [email, setEmail] = useState("");
   const [room, setRoom] = useState("");
@@ -32,10 +32,10 @@ const LobbyScreen = () => {
   const router = useRouter();
 
   // New unique id
-  const unique_id = uuid();
+  // const unique_id = uuid();
 
-  // Get first 8 characters using slice
-  const small_id = unique_id.slice(0, 8);
+  // // Get first 8 characters using slice
+  // const small_id = unique_id.slice(0, 8);
 
 
   const handleSubmitForm = useCallback(
