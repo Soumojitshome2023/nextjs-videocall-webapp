@@ -2,7 +2,7 @@
 import React from 'react'
 import Reg from '../style/Reg.module.css'
 
-export default function Regpage({ setRoom, setEmail, email, room, handleSubmitForm }) {
+export default function Regpage({ setRoom, setEmail, email, room, handleSubmitForm, copyToClipboard, generateUniqueIdWithTimestamp, isCopied }) {
     return (
         <div className={Reg.main}>
             <div className={Reg.loginbox}>
@@ -16,14 +16,29 @@ export default function Regpage({ setRoom, setEmail, email, room, handleSubmitFo
                 <div className={Reg.userbox}>
                     <input type="text" name="code" id="code" required="" value={room}
                         onChange={(e) => setRoom(e.target.value)} />
-                    <label htmlFor="code">Room Code</label>
+                    <label htmlFor="code">Enter Room Code</label>
+
                 </div>
+                <button onClick={copyToClipboard}>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    {isCopied ? "Copied" : "Copy Code"}
+                </button>
                 <button onClick={handleSubmitForm}>
                     <span></span>
                     <span></span>
                     <span></span>
                     <span></span>
-                    Create Room
+                    Submit
+                </button>
+                <button onClick={generateUniqueIdWithTimestamp}>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                    Create Room Code
                 </button>
 
             </div>

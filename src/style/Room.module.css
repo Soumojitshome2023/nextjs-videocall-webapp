@@ -21,6 +21,11 @@
     /* Apply horizontal flip transformation */
 }
 
+.heading {
+    color: white;
+    font-size: 40px;
+}
+
 .remotebox {
     /* border: 2px solid blue; */
     position: absolute;

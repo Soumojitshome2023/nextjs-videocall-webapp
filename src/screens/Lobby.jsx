@@ -10,22 +10,26 @@ import Regpage from "@/components/RegPage";
 const LobbyScreen = () => {
   // const [uniqueId, setUniqueId] = useState(null);
 
-  // const generateUniqueIdWithTimestamp = () => {
-  //   const timestamp = new Date().getTime();
-  //   const alphanumeric = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-  //   const idLength = 9; // Adjust the length of the alphanumeric portion as needed
-  //   // let uniqueId = 'ID_' + timestamp + '_';
-  //   let uniqueId = '';
-
-  //   for (let i = 0; i < idLength; i++) {
-  //     const randomIndex = Math.floor(Math.random() * alphanumeric.length);
-  //     uniqueId += alphanumeric.charAt(randomIndex);
-  //   }
-  //   setUniqueId(uniqueId);
-  // };
-
   const [email, setEmail] = useState("");
   const [room, setRoom] = useState("");
+  const [isCopied, setIsCopied] = useState(false);
+
+  const generateUniqueIdWithTimestamp = () => {
+    const timestamp = new Date().getTime();
+    const alphanumeric = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+    const idLength = 9; // Adjust the length of the alphanumeric portion as needed
+    // let uniqueId = 'ID_' + timestamp + '_';
+    let uniqueId = '';
+
+    for (let i = 0; i < idLength; i++) {
+      const randomIndex = Math.floor(Math.random() * alphanumeric.length);
+      uniqueId += alphanumeric.charAt(randomIndex);
+    }
+    // setUniqueId(uniqueId);
+    setIsCopied(false)
+    setRoom(uniqueId);
+  };
+
 
   const socket = useSocket();
   // const navigate = useNavigate();
@@ -63,6 +67,18 @@ const LobbyScreen = () => {
     };
   }, [socket, handleJoinRoom]);
 
+
+  const copyToClipboard = () => {
+    navigator.clipboard.writeText(room)
+      .then(() => {
+        setIsCopied(true);
+      })
+      .catch((error) => {
+        console.error('Copy failed: ', error);
+      });
+  };
+
+
   return (
     <div>
       {/* <h2>Unique ID</h2>
@@ -71,7 +87,7 @@ const LobbyScreen = () => {
       <button onClick={generateUniqueIdWithTimestamp}>Generate</button> */}
 
       {/* <h1>Lobby</h1> */}
-      <Regpage setEmail={setEmail} email={email} setRoom={setRoom} room={room} handleSubmitForm={handleSubmitForm} />
+      <Regpage setEmail={setEmail} email={email} setRoom={setRoom} room={room} handleSubmitForm={handleSubmitForm} generateUniqueIdWithTimestamp={generateUniqueIdWithTimestamp} copyToClipboard={copyToClipboard} isCopied={isCopied} />
     </div>
   );
 };

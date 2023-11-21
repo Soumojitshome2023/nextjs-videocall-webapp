@@ -155,11 +155,8 @@ const RoomPage = () => {
 
   return (
     <div>
-      {/* <RoomPageDesign /> */}
-      {/* <h1>Room Page</h1> */}
-      {/* <h4>{remoteSocketId ? "Connected" : "No one in room"}</h4> */}
-
       <div className={room.Main}>
+        <h4 className={room.heading}>{remoteSocketId ? "Connected" : "No one in room"}</h4>
 
         <div className={room.buttons}>
 
@@ -201,7 +198,7 @@ const RoomPage = () => {
               {/* <h1>Remote Stream</h1> */}
               <ReactPlayer
                 playing
-                
+
                 height="100%"
                 width="100%"
                 url={remoteStream}
