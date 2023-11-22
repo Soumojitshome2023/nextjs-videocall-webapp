@@ -69,6 +69,7 @@ const RoomPage = () => {
     }
   }
 
+  // ==================================== End Stream ====================================
 
   const endStream = async () => {
     const tracks = myStream.getTracks();
@@ -170,7 +171,6 @@ const RoomPage = () => {
                     <span className={room.button_text}>End Stream</span>
                   </span>
                 </button>
-
                 :
                 <button className={room.button} onClick={sendStreams}>
                   <span className={room.button_lg}>

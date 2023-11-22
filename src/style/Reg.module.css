@@ -20,6 +20,16 @@
   border-radius: 10px;
 }
 
+.Copyright {
+  position: absolute;
+  bottom: -20px;
+  display: inline-block;
+  text-align: center;
+  color: white;
+  font-size: 16px;
+
+}
+
 .loginbox h2 {
   margin: 0 0 30px;
   padding: 0;

@@ -19,13 +19,13 @@ export default function Regpage({ setRoom, setEmail, email, room, handleSubmitFo
                     <label htmlFor="code">Enter Room Code</label>
 
                 </div>
-                <button onClick={copyToClipboard}>
+                {/* <button onClick={copyToClipboard}>
                     <span></span>
                     <span></span>
                     <span></span>
                     <span></span>
                     {isCopied ? "Copied" : "Copy Code"}
-                </button>
+                </button> */}
                 <button onClick={handleSubmitForm}>
                     <span></span>
                     <span></span>
@@ -33,14 +33,15 @@ export default function Regpage({ setRoom, setEmail, email, room, handleSubmitFo
                     <span></span>
                     Submit
                 </button>
-                <button onClick={generateUniqueIdWithTimestamp}>
+                {/* <button onClick={generateUniqueIdWithTimestamp}>
                     <span></span>
                     <span></span>
                     <span></span>
                     <span></span>
                     Create Room Code
-                </button>
+                </button> */}
 
+                {/* <h2 className={Reg.Copyright}>Welcome</h2> */}
             </div>
         </div>
 
