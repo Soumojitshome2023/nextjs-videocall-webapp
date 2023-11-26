@@ -10,7 +10,7 @@ export const useSocket = () => {
 };
 
 export const SocketProvider = (props) => {
-  const socket = useMemo(() => io(process.env.NEXT_PUBLIC_BASE_URL), []);
+  const socket = useMemo(() => io(process.env.NEXT_PUBLIC_SERVER_URL), []);
   // const socket = useMemo(() => io("http://localhost:8000"), []);
 
   return (

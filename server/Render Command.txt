@@ -1,0 +1,7 @@
+Render Command
+======================================
+Name :  nextjs-videocall-webapp
+Root Directory : server
+Runtime : Node
+Build Command : server/ npm i; npm i build
+Start Command : server/ npm start
