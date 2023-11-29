@@ -1,6 +1,11 @@
 class PeerService {
   constructor() {
-    if (!this.peer) {
+    this.peer = null;
+    this.initPeerConnection();
+  }
+
+  initPeerConnection() {
+    if (this.isWebRTCSupported() && !this.peer) {
       this.peer = new RTCPeerConnection({
         iceServers: [
           {
@@ -14,26 +19,42 @@ class PeerService {
     }
   }
 
+  isWebRTCSupported() {
+    return typeof window !== 'undefined' && !!window.RTCPeerConnection;
+  }
+
   async getAnswer(offer) {
-    if (this.peer) {
-      await this.peer.setRemoteDescription(offer);
-      const ans = await this.peer.createAnswer();
-      await this.peer.setLocalDescription(new RTCSessionDescription(ans));
-      return ans;
+    try {
+      if (this.peer) {
+        await this.peer.setRemoteDescription(offer);
+        const ans = await this.peer.createAnswer();
+        await this.peer.setLocalDescription(new RTCSessionDescription(ans));
+        return ans;
+      }
+    } catch (error) {
+      console.error("Error in getAnswer:", error);
     }
   }
 
   async setLocalDescription(ans) {
-    if (this.peer) {
-      await this.peer.setRemoteDescription(new RTCSessionDescription(ans));
+    try {
+      if (this.peer) {
+        await this.peer.setRemoteDescription(new RTCSessionDescription(ans));
+      }
+    } catch (error) {
+      console.error("Error in setLocalDescription:", error);
     }
   }
 
   async getOffer() {
-    if (this.peer) {
-      const offer = await this.peer.createOffer();
-      await this.peer.setLocalDescription(new RTCSessionDescription(offer));
-      return offer;
+    try {
+      if (this.peer) {
+        const offer = await this.peer.createOffer();
+        await this.peer.setLocalDescription(new RTCSessionDescription(offer));
+        return offer;
+      }
+    } catch (error) {
+      console.error("Error in getOffer:", error);
     }
   }
 }

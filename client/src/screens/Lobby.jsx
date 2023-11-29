@@ -35,19 +35,16 @@ const LobbyScreen = () => {
       setConnectionBtnText('Room Not Found');
     });
     socket.on("room:join", handleJoinRoom);
-
     socket.on('Generate Room Code', (uniqueCode) => {
       console.log('Generate Room Code', uniqueCode);
       setGenRoomId(uniqueCode);
     });
-    
     return () => {
       socket.off("room:join", handleJoinRoom);
       socket.off('Generate Room Code');
       socket.off('Room Not Found');
     };
   }, [socket, handleJoinRoom]);
-
 
 
   return (

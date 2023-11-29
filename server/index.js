@@ -8,6 +8,7 @@ const io = new Server(8000, {
 const existingCodes = [];
 
 io.on("connection", (socket) => {
+  // ========================= Step 0 =========================
   console.log(`Socket Connected`, socket.id);
   const uniqueCode = generateUniqueCode();
   io.to(socket.id).emit('Generate Room Code', uniqueCode);
@@ -15,7 +16,6 @@ io.on("connection", (socket) => {
 
   // ========================= Step 3 =========================
   socket.on("room:join", (room) => {
-
     io.to(room).emit("user:joined", socket.id);
     if (existingCodes.includes(room)) {
       socket.join(room);

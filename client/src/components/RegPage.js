@@ -2,7 +2,7 @@
 import React from 'react'
 import Reg from '../style/Reg.module.css'
 
-export default function Regpage({ GenRoomId, ConnectionBtnText, setRoom, setEmail, email, room, handleSubmitForm }) {
+export default function Regpage({ GenRoomId, ConnectionBtnText, setRoom, room, handleSubmitForm }) {
     return (
         <div className={Reg.main}>
             <div className={Reg.loginbox}>
