@@ -137,7 +137,11 @@ export default function RoomPage({ params }) {
     socket.on("Get_Ans", addAnswer);
     socket.on("EndStream", (id) => {
       // console.log("Run End Stream")
+      const tracks = Mystream.getTracks();
 
+      tracks.forEach((track) => {
+        track.stop();
+      });
       router.push('/');
     });
     return () => {
@@ -207,13 +211,13 @@ export default function RoomPage({ params }) {
         </div>
         <div className={roomstyle.remotebox}>
 
-          <video style={{ width: '100%' }} ref={user2VideoRef} autoPlay playsInline />
+          <video style={{ width: '100%', height: '100%' }} ref={user2VideoRef} autoPlay playsInline />
 
         </div>
 
         <div className={roomstyle.currentbox}>
 
-          <video width="320" height="240" ref={user1VideoRef} autoPlay muted playsInline />
+          <video style={{ width: '100%', height: '100%' }} ref={user1VideoRef} autoPlay muted playsInline />
 
         </div>
 
