@@ -1,14 +1,9 @@
 "use client"
 import React, { useEffect, useCallback, useContext, useState, useRef } from "react";
-// import ReactPlayer from "react-player";
-// import peer from "../../service/peer";
 import { MyContext } from "../../../context/SocketProvider";
 import roomstyle from '../../../style/Room.module.css'
 import { useRouter } from "next/navigation";
 import Swal from 'sweetalert2';
-// import io from 'socket.io-client';
-
-// const socket = io(process.env.NEXT_PUBLIC_SERVER_URL);
 
 export default function RoomPage({ params }) {
   const { remoteid } = params;
@@ -24,10 +19,9 @@ export default function RoomPage({ params }) {
   const peerConnectionRef = useRef(null);
   const [Mystream, setMystream] = useState(null);
 
-  // const [roomCode, setroomCode] = useState('');
 
   // =============================== Init ===============================
-  // =========================== Step 1 ===========================
+
   const init = async () => {
     return new Promise(async (resolve, reject) => {
       try {
@@ -63,15 +57,10 @@ export default function RoomPage({ params }) {
     });
   };
 
-  // =========================== Step 3 ===========================
-  // const start = () => {
-  //   socket.emit('Send_RoomJoin_Req', roomCode);
-  // }
-
 
 
   // =========================== Create Offer ===========================
-  // =========================== Step 5 ===========================
+  // =========================== Step 9 ===========================
   const createOffer = async (id) => {
     console.log("Create Offer");
     // console.log(`remoteid: ${remoteId}`)
@@ -92,7 +81,7 @@ export default function RoomPage({ params }) {
   };
 
   // =========================== Create Answer ===========================
-  // =========================== Step 7 ===========================
+  // =========================== Step 11 ===========================
   const createAnswer = useCallback(async ({ id, Offer }) => {
     console.log("Create Ans");
     const receivedOffer = JSON.parse(Offer);
@@ -115,7 +104,7 @@ export default function RoomPage({ params }) {
   }, []);
 
   // =========================== Add Answer ===========================
-  // =========================== Step 9 ===========================
+  // =========================== Step 13 ===========================
   const addAnswer = useCallback(async (Ans) => {
     console.log("Add Ans");
     const receivedAnswer = JSON.parse(Ans);
@@ -126,14 +115,12 @@ export default function RoomPage({ params }) {
     }
   }, []);
 
+  // ========================= Step 8 =========================
   useEffect(() => {
     if (!StartFuncRun) {
       Start();
       setStartFuncRun(true);
     }
-    // createOffer(remoteid);
-    // socket.on("User_Join", createOffer);
-    // socket.emit("Got_Room", socket.id);
     socket.on("Get_Offer", createAnswer);
     socket.on("Get_Ans", addAnswer);
     socket.on("EndStream", (id) => {
@@ -144,7 +131,6 @@ export default function RoomPage({ params }) {
       });
     });
     return () => {
-      // socket.off("User_Join", createOffer);
       socket.off("Get_Offer", createAnswer);
       socket.off("Get_Ans", addAnswer);
       socket.off("EndStream");
@@ -171,7 +157,7 @@ export default function RoomPage({ params }) {
     }
   }
 
-
+  // ========================= Step 14 =========================
   const endStream = async () => {
 
     const tracks = Mystream.getTracks();
@@ -195,7 +181,6 @@ export default function RoomPage({ params }) {
         <div className={roomstyle.buttons}>
 
           {/* ========================= Step 7 ========================= */}
-          {/* {remoteSocketId && */}
 
           <button className={roomstyle.button} onClick={endStream}>
             <span className={roomstyle.button_lg}>

@@ -13,17 +13,19 @@ function getKeyByValue(object, value) {
       return key;
     }
   }
-  // If the value is not found
   return null;
 }
 
 
 io.on("connection", (socket) => {
+  console.log("existingCodes: ", existingCodes);
+  console.log("Room: ", Room);
+  // ========================= Step 1 =========================
   console.log(`Socket Connected: ${socket.id}`);
   const uniqueCode = generateUniqueCode();
   io.to(socket.id).emit('Generate Room Code', uniqueCode);
 
-  // =========================== Step 4 ===========================
+  // ========================= Step 5 =========================
   socket.on("Send_RoomJoin_Req", (roomCode) => {
 
     if (existingCodes.includes(roomCode)) {
@@ -43,6 +45,7 @@ io.on("connection", (socket) => {
     }
   });
 
+  // ========================= Step 15 =========================
   socket.on("EndStream", (remoteid) => {
     io.to(remoteid).emit("EndStream", socket.id);
     console.log(`1 Id: ${remoteid} Socket id: ${socket.id}`)
@@ -50,20 +53,18 @@ io.on("connection", (socket) => {
   });
 
 
-
-  // =========================== Step 6 ===========================
+  // ========================= Step 10 =========================
   socket.on("Send_Offer", ({ remoteId, Offer }) => {
     io.to(remoteId).emit("Get_Offer", { id: socket.id, Offer });
     // console.log(`1 Id: ${remoteId} Socket id: ${socket.id}`)
   });
 
-  // =========================== Step 8 ===========================
+  // ========================= Step 12 =========================
   socket.on("Send_Ans", ({ id, Ans }) => {
     io.to(id).emit("Get_Ans", Ans);
     // console.log(`2 Id: ${id} Socket id: ${socket.id}`)
   });
 
-  // =========================== Step 10 ===========================
   socket.on('disconnect', () => {
     let key = getKeyByValue(Room, socket.id);
     delete Room[key];
