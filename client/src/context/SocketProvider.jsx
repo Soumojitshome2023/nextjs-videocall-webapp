@@ -1,21 +1,31 @@
 "use client"
-import React, { createContext, useMemo, useContext } from "react";
-import { io } from "socket.io-client";
+import React, { createContext, useState, useEffect } from 'react';
+import io from 'socket.io-client';
 
-const SocketContext = createContext(null);
+export const MyContext = createContext();
 
-export const useSocket = () => {
-  const socket = useContext(SocketContext);
-  return socket;
-};
+export function DataSet() {
 
-export const SocketProvider = (props) => {
-  const socket = useMemo(() => io(process.env.NEXT_PUBLIC_SERVER_URL), []);
-  // const socket = useMemo(() => io("http://localhost:8000"), []);
+  // const [remoteSocketId, setRemoteSocketId] = useState(null);
+  // const [room, setRoom] = useState("");
+  const [peerConnection, setPeerConnection] = useState(null);
 
+  const socket = io(process.env.NEXT_PUBLIC_SERVER_URL);
+
+  return {
+    socket, peerConnection, setPeerConnection
+  };
+}
+
+const MyContextProvider = ({ children }) => {
+  const data = DataSet();
   return (
-    <SocketContext.Provider value={socket}>
-      {props.children}
-    </SocketContext.Provider>
-  );
-};
+    <div>
+      <MyContext.Provider value={data}>
+        {children}
+      </MyContext.Provider>
+    </div>
+  )
+}
+
+export default MyContextProvider;
