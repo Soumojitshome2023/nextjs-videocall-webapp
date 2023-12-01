@@ -5,6 +5,7 @@ import React, { useEffect, useCallback, useContext, useState, useRef } from "rea
 import { MyContext } from "../../../context/SocketProvider";
 import roomstyle from '../../../style/Room.module.css'
 import { useRouter } from "next/navigation";
+import Swal from 'sweetalert2';
 // import io from 'socket.io-client';
 
 // const socket = io(process.env.NEXT_PUBLIC_SERVER_URL);
@@ -136,13 +137,11 @@ export default function RoomPage({ params }) {
     socket.on("Get_Offer", createAnswer);
     socket.on("Get_Ans", addAnswer);
     socket.on("EndStream", (id) => {
-      // console.log("Run End Stream")
-      const tracks = Mystream.getTracks();
-
-      tracks.forEach((track) => {
-        track.stop();
+      Swal.fire({
+        icon: "error",
+        title: "Call End",
+        text: "Call End",
       });
-      router.push('/');
     });
     return () => {
       // socket.off("User_Join", createOffer);
@@ -175,8 +174,6 @@ export default function RoomPage({ params }) {
 
   const endStream = async () => {
 
-    socket.emit("EndStream", remoteid);
-
     const tracks = Mystream.getTracks();
 
     tracks.forEach((track) => {
@@ -184,7 +181,7 @@ export default function RoomPage({ params }) {
     });
 
     setMystream(null);
-    socket.emit('EndStream', 'End');
+    socket.emit("EndStream", remoteid);
     router.push('/');
   }
 
