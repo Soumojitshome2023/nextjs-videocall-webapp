@@ -51,7 +51,8 @@ io.on("connection", (socket) => {
         if (indexToRemove !== -1) {
           existingCodes.splice(indexToRemove, 1);
         }
-        delete Room.roomCode;
+        // delete Room.roomCode;
+        delete Room[roomCode]
       }
       else {
         Room[roomCode] = uuid;
@@ -90,6 +91,14 @@ io.on("connection", (socket) => {
   socket.on('disconnect', () => {
     let key = getKeyByValue(Users, socket.id);
     delete Users[key];
+    if (Object.keys(Users).length == 0) {
+      existingCodes.splice(0, existingCodes.length);
+
+      Object.keys(Room).forEach(key => {
+        delete Room[key];
+      });
+
+    }
     console.log("=======================================")
     console.log("existingCodes: ", existingCodes);
     console.log("Room: ", Room);
