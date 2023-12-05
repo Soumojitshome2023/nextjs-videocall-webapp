@@ -11,6 +11,7 @@
   },
   "dependencies": {
     "dotenv": "^16.3.1",
+    "flowbite": "^2.2.0",
     "next": "14.0.3",
     "react": "^18",
     "react-dom": "^18",
@@ -18,6 +19,7 @@
     "socket.io": "^4.7.2",
     "socket.io-client": "^4.7.2",
     "sweetalert2": "^11.10.1",
+    "uuid": "^9.0.1",
     "uuidv4": "^6.2.13"
   },
   "devDependencies": {

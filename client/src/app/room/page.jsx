@@ -1,17 +1,16 @@
 "use client"
 import React, { useEffect, useCallback, useContext, useState, useRef } from "react";
-import { MyContext } from "../../../context/SocketProvider";
-import roomstyle from '../../../style/Room.module.css'
+import { MyContext } from "../../context/SocketProvider";
+import roomstyle from '../../style/Room.module.css'
 import { useRouter } from "next/navigation";
 import Swal from 'sweetalert2';
 
-export default function RoomPage({ params }) {
-  const { remoteid } = params;
+export default function RoomPage() {
 
   const router = useRouter();
 
   const Context = useContext(MyContext);
-  const { socket } = Context;
+  const { socket, remoteUuid, setremoteUuid, MyUuid } = Context;
 
   const [StartFuncRun, setStartFuncRun] = useState(false)
   const user1VideoRef = useRef(null);
@@ -26,9 +25,7 @@ export default function RoomPage({ params }) {
     return new Promise(async (resolve, reject) => {
       try {
         const pc = new RTCPeerConnection();
-        // setPeerConnection(pc);
         peerConnectionRef.current = pc;
-        console.log("My Id: ", socket.id);
 
         const stream = await navigator.mediaDevices.getUserMedia({
           video: true,
@@ -48,6 +45,12 @@ export default function RoomPage({ params }) {
             remoteStream.addTrack(track);
           });
         };
+        socket.emit('ReAdd_Id', MyUuid);
+        console.log("My UUID: ", MyUuid)
+        console.log("Remote UUID: ", remoteUuid)
+        console.log("My Socket Id: ", socket.id)
+
+
         resolve(pc);
 
       } catch (error) {
@@ -63,14 +66,13 @@ export default function RoomPage({ params }) {
   // =========================== Step 9 ===========================
   const createOffer = async (id) => {
     console.log("Create Offer");
-    // console.log(`remoteid: ${remoteId}`)
+    console.log(`remoteid: ${remoteUuid}`)
     let run = false;
     peerConnectionRef.current.onicecandidate = async (event) => {
       if (event.candidate) {
         const Offer = JSON.stringify(peerConnectionRef.current.localDescription);
         if (!run) {
-          socket.emit('Send_Offer', { remoteId: id, Offer });
-          // console.log('Send_Offer run');
+          socket.emit('Send_Offer', { to: id, Offer });
           run = true;
         }
       }
@@ -82,17 +84,15 @@ export default function RoomPage({ params }) {
 
   // =========================== Create Answer ===========================
   // =========================== Step 11 ===========================
-  const createAnswer = useCallback(async ({ id, Offer }) => {
+  const createAnswer = useCallback(async (Offer) => {
     console.log("Create Ans");
     const receivedOffer = JSON.parse(Offer);
-    // console.log("Offer: ", receivedOffer)
     let run = false;
     peerConnectionRef.current.onicecandidate = async (event) => {
       if (event.candidate) {
         if (!run) {
-          // console.log('Adding answer candidate...:', event.candidate);
           const Ans = JSON.stringify(peerConnectionRef.current.localDescription);
-          socket.emit('Send_Ans', { id, Ans });
+          socket.emit('Send_Ans', { to: remoteUuid, Ans });
           run = true;
         }
       }
@@ -108,8 +108,6 @@ export default function RoomPage({ params }) {
   const addAnswer = useCallback(async (Ans) => {
     console.log("Add Ans");
     const receivedAnswer = JSON.parse(Ans);
-    // console.log('Add answer triggered');
-    // console.log('answer:', receivedAnswer);
     if (!peerConnectionRef.current.remoteDescription) {
       peerConnectionRef.current.setRemoteDescription(receivedAnswer);
     }
@@ -119,11 +117,15 @@ export default function RoomPage({ params }) {
   useEffect(() => {
     if (!StartFuncRun) {
       Start();
-      setStartFuncRun(true);
     }
     socket.on("Get_Offer", createAnswer);
     socket.on("Get_Ans", addAnswer);
     socket.on("EndStream", (id) => {
+      user1VideoRef.current = null;
+      user2VideoRef.current = null;
+      setremoteUuid(null);
+      router.push('/');
+      
       Swal.fire({
         icon: "error",
         title: "Call End",
@@ -139,18 +141,20 @@ export default function RoomPage({ params }) {
 
 
   const Start = async () => {
+    setStartFuncRun(true);
+    console.log("Start Run")
     await init();
-    const string1 = socket.id;
-    const string2 = remoteid;
+    const string1 = MyUuid;
+    const string2 = remoteUuid;
 
     const result = string1.localeCompare(string2);
 
     if (result < 0) {
       // console.log(`${string1} comes before ${string2}`);
-      createOffer(remoteid);
+      createOffer(remoteUuid);
       // return 1;
     } else if (result > 0) {
-      // console.log(`${string1} comes after ${string2}`);
+      console.log(`${string1} comes after ${string2}`);
       // return 0;
     } else {
       console.log(`${string1} is equal to ${string2}`);
@@ -159,15 +163,16 @@ export default function RoomPage({ params }) {
 
   // ========================= Step 14 =========================
   const endStream = async () => {
-
     const tracks = Mystream.getTracks();
-
     tracks.forEach((track) => {
       track.stop();
     });
 
     setMystream(null);
-    socket.emit("EndStream", remoteid);
+    user1VideoRef.current = null;
+    user2VideoRef.current = null;
+    socket.emit("EndStream", remoteUuid);
+    setremoteUuid(null);
     router.push('/');
   }
 
@@ -188,6 +193,12 @@ export default function RoomPage({ params }) {
               <span className={roomstyle.button_text}>End Stream</span>
             </span>
           </button>
+          {/* <button className={roomstyle.button} onClick={Start}>
+            <span className={roomstyle.button_lg}>
+              <span className={roomstyle.button_sl}></span>
+              <span className={roomstyle.button_text}>Start Stream</span>
+            </span>
+          </button> */}
 
           {/* } */}
         </div>
