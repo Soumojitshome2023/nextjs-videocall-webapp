@@ -6,7 +6,8 @@
   "main": "index.js.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "start": "node index.js",
+    "dev": "nodemon index.js"
   },
   "author": "Soumojit Shome",
   "license": "ISC",

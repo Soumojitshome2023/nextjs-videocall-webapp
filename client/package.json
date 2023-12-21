@@ -11,10 +11,12 @@
   },
   "dependencies": {
     "dotenv": "^16.3.1",
-    "flowbite": "^2.2.0",
+    "flowbite": "^2.2.1",
     "next": "14.0.3",
+    "nextjs-current-url": "^1.0.3",
     "react": "^18",
     "react-dom": "^18",
+    "react-loader-spinner": "^6.1.4",
     "react-player": "^2.13.0",
     "socket.io": "^4.7.2",
     "socket.io-client": "^4.7.2",

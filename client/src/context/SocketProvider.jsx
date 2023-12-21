@@ -9,7 +9,6 @@ export function DataSet() {
 
   const [remoteUuid, setremoteUuid] = useState(null);
   const [MyUuid, setMyUuid] = useState(uuidv4());
-  // const [room, setRoom] = useState("");
   const [peerConnection, setPeerConnection] = useState(null);
 
   const socket = io(process.env.NEXT_PUBLIC_SERVER_URL);

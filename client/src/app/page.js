@@ -3,12 +3,16 @@ import React from 'react'
 // import Regpage from '@/components/RegPage'
 // import RoomPage from '@/components/RoomPageDesign'
 import LobbyScreen from '@/screens/Lobby'
+import CreateLink from '@/components/CreateLink'
+import CallPage from '@/components/CallPage'
 
 export default function page() {
   return (
     <>
       {/* <Regpage/> */}
-      <LobbyScreen/>
+      <LobbyScreen />
+      {/* <CreateLink /> */}
+      {/* <CallPage /> */}
       {/* <RoomPage/> */}
     </>
   )
