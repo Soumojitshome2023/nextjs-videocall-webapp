@@ -21,7 +21,6 @@ export default function page({ params }) {
             try {
                 const pc = new RTCPeerConnection();
                 peerConnectionRef.current = pc;
-
                 const stream = await navigator.mediaDevices.getUserMedia({
                     video: true,
                     audio: true
@@ -47,7 +46,6 @@ export default function page({ params }) {
             }
         });
     };
-
 
     // =========================== Create Offer ===========================
     const createOffer = async (id) => {
@@ -118,7 +116,7 @@ export default function page({ params }) {
                 setMystream(null);
                 user1VideoRef.current = null;
                 user2VideoRef.current = null;
-
+                setremoteUuid(null);
                 Swal.fire({
                     icon: "error",
                     title: "Call End",
@@ -137,7 +135,7 @@ export default function page({ params }) {
 
 
     const Start = async (remote) => {
-        console.log("Start Run");
+        // console.log("Start Run");
         await init();
         const string1 = MyUuid;
         const string2 = remote;
@@ -159,7 +157,7 @@ export default function page({ params }) {
         user1VideoRef.current = null;
         user2VideoRef.current = null;
         socket.emit("EndStream", { to: id });
-        // setremoteUuid(null);
+        setremoteUuid(null);
         router.push('/');
     }
 

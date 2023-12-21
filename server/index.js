@@ -9,8 +9,9 @@ const Room = {}
 
 io.on("connection", (socket) => {
 
-  console.log(`Socket Connected: ${socket.id}`);
+  // console.log(`Socket Connected: ${socket.id}`);
   socket.on("Send_RoomJoin_Req", ({ roomCode, uuid }) => {
+    
     if (Room[roomCode] && Room[roomCode] != uuid) {
       io.emit("User_Join", { to: Room[roomCode], remote: uuid });
       io.emit("User_Join", { to: uuid, remote: Room[roomCode] });
