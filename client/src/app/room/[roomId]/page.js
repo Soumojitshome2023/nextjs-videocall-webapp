@@ -99,13 +99,22 @@ export default function page({ params }) {
     const UserJoin = async ({ to, remote }) => {
         if (to == MyUuid) {
             setremoteUuid(remote);
-            console.log("Remote uuid : " + remote);
             console.log("My uuid : " + to);
+            console.log("Remote uuid : " + remote);
             Start(remote);
         }
     }
+
+    const Get_Available = useCallback(async ({ from, roomCode }) => {
+        if (from != MyUuid && roomCode == roomId) {
+            socket.emit("Send_Available", { roomCode: roomId, to: from, uuid: MyUuid });
+        }
+    }, []);
+
     useEffect(() => {
         socket.emit("Send_RoomJoin_Req", { roomCode: roomId, uuid: MyUuid });
+
+        socket.on("Get_Available", Get_Available);
 
         socket.on("User_Join", UserJoin);
         socket.on("Get_Offer", createAnswer);
@@ -126,6 +135,7 @@ export default function page({ params }) {
             }
         });
         return () => {
+            socket.off("Get_Available", Get_Available);
             socket.off("User_Join", UserJoin);
             socket.off("Get_Offer", createAnswer);
             socket.off("Get_Ans", addAnswer);

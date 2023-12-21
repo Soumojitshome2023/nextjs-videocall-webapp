@@ -3,8 +3,10 @@ import 'flowbite';
 import React, { useState } from 'react';
 import { useUrl } from 'nextjs-current-url';
 import Link from 'next/link';
+import { v4 as uuidv4 } from 'uuid';
 
-export default function CreateLink({ GenRoomId, CreateRoomCode }) {
+export default function CreateLink() {
+	const [GenRoomId, setGenRoomId] = useState('');
 	const { href: currentUrl, pathname } = useUrl() ?? {};
 	const [isCopied, setIsCopied] = useState(false);
 	const copyToClipboard = () => {
@@ -16,6 +18,13 @@ export default function CreateLink({ GenRoomId, CreateRoomCode }) {
 				console.error('Copy failed: ', error);
 			});
 	};
+
+
+	const CreateRoomCode = () => {
+		const id = uuidv4();
+		setGenRoomId(id);
+		setIsCopied(false);
+	}
 
 	return (
 
@@ -36,7 +45,7 @@ export default function CreateLink({ GenRoomId, CreateRoomCode }) {
 					<button className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" onClick={CreateRoomCode}>Create Link</button>
 					{GenRoomId &&
 						<button className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" onClick={copyToClipboard}>
-							{isCopied ? "Copied" : "Copy LInk"}
+							{isCopied ? "Copied" : "Copy Link"}
 						</button>
 					}
 					{GenRoomId &&
