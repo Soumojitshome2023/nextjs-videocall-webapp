@@ -170,10 +170,11 @@ export default function page({ params }) {
                     <div className='absolute w-screen h-screen'>
                         <video className="w-full h-screen p-5" style={{ transform: 'scaleX(-1)' }} ref={user2VideoRef} autoPlay playsInline />
                     </div>
-                    <div className='absolute bottom-0 right-0'>
 
-                        <video className="w-48 h-72 p-5" style={{ transform: 'scaleX(-1)' }} ref={user1VideoRef} autoPlay muted playsInline />
+                    <div className='absolute bottom-0 right-0'>
+                        <video className="sm:w-48 w-32 sm:h-72 h-48 p-5" style={{ transform: 'scaleX(-1)' }} ref={user1VideoRef} autoPlay muted playsInline />
                     </div>
+
                     <div className='absolute bottom-0 right-0'>
                         <button type="button" className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" onClick={() => { endStream(remoteUuid) }}>End</button>
                     </div>
