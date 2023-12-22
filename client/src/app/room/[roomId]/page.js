@@ -10,10 +10,11 @@ export default function page({ params }) {
     const user1VideoRef = useRef(null);
     const user2VideoRef = useRef(null);
     const peerConnectionRef = useRef(null);
-    const [Mystream, setMystream] = useState(null);
+    // const [Mystream, setMystream] = useState(null);
     const Context = useContext(MyContext);
     const { socket, remoteUuid, setremoteUuid, MyUuid } = Context;
     const router = useRouter();
+    const [hasRun, setHasRun] = useState(false);
 
     // =============================== Init ===============================
     const init = async () => {
@@ -26,7 +27,7 @@ export default function page({ params }) {
                     audio: true
                 });
                 user1VideoRef.current.srcObject = stream;
-                setMystream(stream);
+                // setMystream(stream);
                 const remoteStream = new MediaStream();
                 user2VideoRef.current.srcObject = remoteStream;
 
@@ -112,17 +113,19 @@ export default function page({ params }) {
     }, []);
 
     useEffect(() => {
-        socket.emit("Send_RoomJoin_Req", { roomCode: roomId, uuid: MyUuid });
+        if (!hasRun) {
+            socket.emit("Send_RoomJoin_Req", { roomCode: roomId, uuid: MyUuid });
+            setHasRun(true);
+        }
 
         socket.on("Get_Available", Get_Available);
-
         socket.on("User_Join", UserJoin);
         socket.on("Get_Offer", createAnswer);
         socket.on("Get_Ans", addAnswer);
         socket.on("EndStream", ({ to }) => {
 
             if (to == MyUuid) {
-                setMystream(null);
+                // setMystream(null);
                 user1VideoRef.current = null;
                 user2VideoRef.current = null;
                 setremoteUuid(null);
@@ -141,7 +144,7 @@ export default function page({ params }) {
             socket.off("Get_Ans", addAnswer);
             socket.off("EndStream");
         }
-    }, [socket]);
+    }, [socket, hasRun]);
 
 
     const Start = async (remote) => {
@@ -163,7 +166,7 @@ export default function page({ params }) {
         //     track.stop();
         // });
 
-        setMystream(null);
+        // setMystream(null);
         user1VideoRef.current = null;
         user2VideoRef.current = null;
         socket.emit("EndStream", { to: id });
