@@ -5,7 +5,7 @@ const io = new Server(8000, {
   cors: true,
 });
 
-// const RoomU1 = {};
+const RoomU1 = {};
 // const RoomU2 = {};
 
 io.on("connection", (socket) => {
@@ -25,12 +25,16 @@ io.on("connection", (socket) => {
   //   }
   // });
   socket.on("Send_RoomJoin_Req", ({ roomCode, uuid }) => {
-    io.emit("Get_Available", { from: uuid, roomCode: roomCode });
+    if (!RoomU1[roomCode] || RoomU1[roomCode] != uuid) {
+      io.emit("Get_Available", { from: uuid, roomCode: roomCode });
+      RoomU1[roomCode] = uuid;
+    }
   });
 
   socket.on("Send_Available", ({ roomCode, to, uuid }) => {
     io.emit("User_Join", { to: to, remote: uuid });
     io.emit("User_Join", { to: uuid, remote: to });
+    // delete RoomU1[roomCode];
   });
 
   socket.on("EndStream", ({ to }) => {

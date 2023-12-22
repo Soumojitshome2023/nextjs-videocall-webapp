@@ -15,6 +15,7 @@ export default function page({ params }) {
     const { socket, remoteUuid, setremoteUuid, MyUuid } = Context;
     const router = useRouter();
     const [hasRun, setHasRun] = useState(false);
+    const [StartBtnVisi, setStartBtnVisi] = useState(false);
 
     // =============================== Init ===============================
     const init = async () => {
@@ -134,15 +135,16 @@ export default function page({ params }) {
 
 
     const Start = async (remote) => {
-        // console.log("Start Run");
+        console.log("Start Run");
         await init();
         const string1 = MyUuid;
         const string2 = remote;
 
         const result = string1.localeCompare(string2);
-
+        setStartBtnVisi(false);
         if (result < 0) {
-            createOffer(remote);
+            // createOffer(remote);
+            setStartBtnVisi(true);
         }
     }
     const RemoteOrderEndStream = useCallback(({ to }) => {
@@ -196,6 +198,12 @@ export default function page({ params }) {
 
                     <div className='absolute bottom-0 right-0'>
                         <button type="button" className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" onClick={() => { endStream(remoteUuid) }}>End</button>
+                        {StartBtnVisi &&
+                            <button type="button" className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" onClick={() => {
+                                createOffer(remoteUuid)
+                                setStartBtnVisi(false);
+                            }}>Start</button>
+                        }
                     </div>
                 </div>
             }
