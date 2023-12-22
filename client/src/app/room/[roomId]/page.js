@@ -10,7 +10,7 @@ export default function page({ params }) {
     const user1VideoRef = useRef(null);
     const user2VideoRef = useRef(null);
     const peerConnectionRef = useRef(null);
-    // const [Mystream, setMystream] = useState(null);
+    const [Mystream, setMystream] = useState(null);
     const Context = useContext(MyContext);
     const { socket, remoteUuid, setremoteUuid, MyUuid } = Context;
     const router = useRouter();
@@ -27,7 +27,7 @@ export default function page({ params }) {
                     audio: true
                 });
                 user1VideoRef.current.srcObject = stream;
-                // setMystream(stream);
+                setMystream(stream);
                 const remoteStream = new MediaStream();
                 user2VideoRef.current.srcObject = remoteStream;
 
@@ -122,27 +122,13 @@ export default function page({ params }) {
         socket.on("User_Join", UserJoin);
         socket.on("Get_Offer", createAnswer);
         socket.on("Get_Ans", addAnswer);
-        socket.on("EndStream", ({ to }) => {
-
-            if (to == MyUuid) {
-                // setMystream(null);
-                user1VideoRef.current = null;
-                user2VideoRef.current = null;
-                setremoteUuid(null);
-                Swal.fire({
-                    icon: "error",
-                    title: "Call End",
-                    text: "Call End",
-                });
-                router.push('/');
-            }
-        });
+        socket.on("EndStream", RemoteOrderEndStream);
         return () => {
             socket.off("Get_Available", Get_Available);
             socket.off("User_Join", UserJoin);
             socket.off("Get_Offer", createAnswer);
             socket.off("Get_Ans", addAnswer);
-            socket.off("EndStream");
+            socket.off("EndStream", RemoteOrderEndStream);
         }
     }, [socket, hasRun]);
 
@@ -159,6 +145,26 @@ export default function page({ params }) {
             createOffer(remote);
         }
     }
+    const RemoteOrderEndStream = useCallback(({ to }) => {
+        if (to == MyUuid) {
+            // const tracks = Mystream.getTracks();
+            // tracks.forEach((track) => {
+            //     track.stop();
+            // });
+
+            setMystream(null);
+            user1VideoRef.current = null;
+            user2VideoRef.current = null;
+            setremoteUuid(null);
+            Swal.fire({
+                icon: "error",
+                title: "Call End",
+                text: "Call End",
+            });
+            router.push('/');
+        }
+    }, []);
+
 
     const endStream = async (id) => {
         // const tracks = Mystream.getTracks();
@@ -166,7 +172,7 @@ export default function page({ params }) {
         //     track.stop();
         // });
 
-        // setMystream(null);
+        setMystream(null);
         user1VideoRef.current = null;
         user2VideoRef.current = null;
         socket.emit("EndStream", { to: id });
@@ -179,7 +185,7 @@ export default function page({ params }) {
     return (
         <>
             {remoteUuid &&
-                <>
+                <div className="bg-black h-screen">
                     <div className='absolute w-screen h-screen'>
                         <video className="w-full h-screen p-5" style={{ transform: 'scaleX(-1)' }} ref={user2VideoRef} autoPlay playsInline />
                     </div>
@@ -191,7 +197,7 @@ export default function page({ params }) {
                     <div className='absolute bottom-0 right-0'>
                         <button type="button" className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" onClick={() => { endStream(remoteUuid) }}>End</button>
                     </div>
-                </>
+                </div>
             }
             {!remoteUuid && (
                 <WaitLoading />

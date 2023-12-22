@@ -1,6 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
-  dsrkMode: 'class',
+  lightMode: 'class',
   plugins: [
     require('flowbite/plugin')
   ],
