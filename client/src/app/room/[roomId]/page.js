@@ -4,6 +4,7 @@ import { MyContext } from "../../../context/SocketProvider";
 import Swal from 'sweetalert2';
 import { useRouter } from "next/navigation";
 import WaitLoading from "@/components/WaitLoading";
+import DataLoader from "@/components/DataLoader";
 
 export default function page({ params }) {
     const { roomId } = params;
@@ -16,6 +17,7 @@ export default function page({ params }) {
     const router = useRouter();
     const [hasRun, setHasRun] = useState(false);
     const [StartBtnVisi, setStartBtnVisi] = useState(false);
+    const [ConnectionStatus, setConnectionStatus] = useState(false);
 
     // =============================== Init ===============================
     const init = async () => {
@@ -78,6 +80,7 @@ export default function page({ params }) {
                         const Ans = JSON.stringify(peerConnectionRef.current.localDescription);
                         socket.emit('Send_Ans', { to: from, from: to, Ans });
                         run = true;
+                        setConnectionStatus(true);
                     }
                 }
             };
@@ -94,6 +97,7 @@ export default function page({ params }) {
             const receivedAnswer = JSON.parse(Ans);
             if (!peerConnectionRef.current.remoteDescription) {
                 peerConnectionRef.current.setRemoteDescription(receivedAnswer);
+                setConnectionStatus(true);
             }
         }
     }, []);
@@ -103,13 +107,15 @@ export default function page({ params }) {
             setremoteUuid(remote);
             console.log("My uuid : " + to);
             console.log("Remote uuid : " + remote);
-            Start(remote);
+            // Start(remote);
+            await init();
         }
     }
 
     const Get_Available = useCallback(async ({ from, roomCode }) => {
         if (from != MyUuid && roomCode == roomId) {
             socket.emit("Send_Available", { roomCode: roomId, to: from, uuid: MyUuid });
+            setStartBtnVisi(true);
         }
     }, []);
 
@@ -134,19 +140,20 @@ export default function page({ params }) {
     }, [socket, hasRun]);
 
 
-    const Start = async (remote) => {
-        console.log("Start Run");
-        await init();
-        const string1 = MyUuid;
-        const string2 = remote;
+    // const Start = async (remote) => {
+    //     console.log("Start Run");
+    //     await init();
+    // const string1 = MyUuid;
+    // const string2 = remote;
 
-        const result = string1.localeCompare(string2);
-        setStartBtnVisi(false);
-        if (result < 0) {
-            // createOffer(remote);
-            setStartBtnVisi(true);
-        }
-    }
+    // const result = string1.localeCompare(string2);
+    // setStartBtnVisi(false);
+    // if (result < 0) {
+    //     // createOffer(remote);
+    //     setStartBtnVisi(true);
+    // }
+    // }
+
     const RemoteOrderEndStream = useCallback(({ to }) => {
         if (to == MyUuid) {
             // const tracks = Mystream.getTracks();
@@ -192,18 +199,29 @@ export default function page({ params }) {
                         <video className="w-full h-screen p-5" style={{ transform: 'scaleX(-1)' }} ref={user2VideoRef} autoPlay playsInline />
                     </div>
 
+                    {!ConnectionStatus && !StartBtnVisi &&
+                        <DataLoader />
+                    }
+                    <div className="absolute top-0 left-0 w-full h-full flex justify-center items-center">
+
+                        {/* <p className="text-white">Wait</p> */}
+                        {StartBtnVisi &&
+                            <button type="button" className="text-white bg-gradient-to-r from-purple-500 to-pink-500 hover:bg-gradient-to-l focus:ring-4 focus:outline-none focus:ring-purple-200 dark:focus:ring-purple-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" onClick={() => {
+                                createOffer(remoteUuid)
+                                setStartBtnVisi(false);
+                            }}>Start</button>
+                        }
+                    </div>
+
                     <div className='absolute bottom-0 right-0'>
                         <video className="sm:w-48 w-32 sm:h-72 h-48 p-5" style={{ transform: 'scaleX(-1)' }} ref={user1VideoRef} autoPlay muted playsInline />
                     </div>
 
                     <div className='absolute bottom-0 right-0'>
-                        <button type="button" className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" onClick={() => { endStream(remoteUuid) }}>End</button>
-                        {StartBtnVisi &&
-                            <button type="button" className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" onClick={() => {
-                                createOffer(remoteUuid)
-                                setStartBtnVisi(false);
-                            }}>Start</button>
+                        {!StartBtnVisi &&
+                            <button type="button" className="text-white bg-gradient-to-r from-red-400 via-red-500 to-red-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-red-300 dark:focus:ring-red-800 shadow-lg shadow-red-500/50 dark:shadow-lg dark:shadow-red-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" onClick={() => { endStream(remoteUuid) }}>End</button>
                         }
+
                     </div>
                 </div>
             }
