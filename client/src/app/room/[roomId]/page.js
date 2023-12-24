@@ -24,18 +24,29 @@ export default function page({ params }) {
         return new Promise(async (resolve, reject) => {
             try {
                 // const pc = new RTCPeerConnection();
-                const pc = new RTCPeerConnection({ iceServers: [{ urls: "stun:stun.l.google.com:19302" }] });
+                // const pc = new RTCPeerConnection({ iceServers: [{ urls: "stun:stun.l.google.com:19302" }] });
 
-                // new RTCPeerConnection({
-                //     iceServers: [
-                //         {
-                //             urls: [
-                //                 "stun:stun.l.google.com:19302",
-                //                 "stun:global.stun.twilio.com:3478",
-                //             ],
-                //         },
-                //     ],
-                // });
+                const pc = new RTCPeerConnection({
+                    iceServers: [
+                        {
+                            urls: [
+                                "stun:stun.l.google.com:19302",
+                                "stun:global.stun.twilio.com:3478",
+                            ],
+                        },
+                    ],
+                });
+
+                pc.addEventListener('icecandidate', event => {
+                    if (event.candidate) {
+                        console.log('ICE candidate:', event.candidate);
+                    }
+                });
+
+                pc.addEventListener('iceconnectionstatechange', () => {
+                    console.log('ICE connection state:', pc.iceConnectionState);
+                });
+
 
 
                 peerConnectionRef.current = pc;
