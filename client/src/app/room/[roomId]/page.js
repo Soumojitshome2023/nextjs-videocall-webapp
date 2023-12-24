@@ -23,7 +23,21 @@ export default function page({ params }) {
     const init = async () => {
         return new Promise(async (resolve, reject) => {
             try {
-                const pc = new RTCPeerConnection();
+                // const pc = new RTCPeerConnection();
+                const pc = new RTCPeerConnection({ iceServers: [{ urls: "stun:stun.l.google.com:19302" }] });
+
+                // new RTCPeerConnection({
+                //     iceServers: [
+                //         {
+                //             urls: [
+                //                 "stun:stun.l.google.com:19302",
+                //                 "stun:global.stun.twilio.com:3478",
+                //             ],
+                //         },
+                //     ],
+                // });
+
+
                 peerConnectionRef.current = pc;
                 const stream = await navigator.mediaDevices.getUserMedia({
                     video: true,
