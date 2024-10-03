@@ -99,8 +99,30 @@ export default function CreateLink() {
             </Link>
           )}
         </div>
+        <div className="flex rounded-xl gap-20 ">
+          <Image
+            src="/img1.png"
+            alt="bg"
+            width={300}
+            height={550}
+            className="rounded-lg hover:scale-105 transition-all duration-300"
+          />
+          <Image
+            src="/image2.png"
+            alt="bg"
+            width={500}
+            height={550}
+            className="rounded-lg hover:scale-105 transition-all duration-300"
+          ></Image>
+          <Image
+            src="/img3.png"
+            alt="bg"
+            width={300}
+            height={550}
+            className="rounded-lg hover:scale-105 transition-all duration-300"
+          ></Image>
+        </div>
       </div>
-      <Image src="/img1.png" alt="bg" width={1000} height={1000}></Image>
 
       <div className="bg-gradient-to-b from-blue-50 to-transparent dark:from-blue-900 w-full h-full absolute top-0 left-0 z-0"></div>
     </section>
