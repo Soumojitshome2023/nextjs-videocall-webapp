@@ -1,15 +1,26 @@
 // const { Server } = require("socket.io");
 import { Server } from "socket.io";
+import http from "http";
 
-const io = new Server(8000, {
-  cors: true,
+const httpServer = http.createServer();
+
+const io = new Server(httpServer, {
+  cors: {
+    origin: "http://localhost:3000", // or your client's URL
+    methods: ["GET", "POST"],
+  },
+});
+
+// ... rest of your server code ...
+
+httpServer.listen(8000, () => {
+  console.log("Server running on http://localhost:8000");
 });
 
 // const RoomU1 = {};
 // const RoomU2 = {};
 
 io.on("connection", (socket) => {
-
   // console.log(`Socket Connected: ${socket.id}`);
   // socket.on("Send_RoomJoin_Req", ({ roomCode, uuid }) => {
 
@@ -26,8 +37,8 @@ io.on("connection", (socket) => {
   // });
   socket.on("Send_RoomJoin_Req", ({ roomCode, uuid }) => {
     // if (!RoomU1[roomCode] || RoomU1[roomCode] != uuid) {
-      io.emit("Get_Available", { from: uuid, roomCode: roomCode });
-      // RoomU1[roomCode] = uuid;
+    io.emit("Get_Available", { from: uuid, roomCode: roomCode });
+    // RoomU1[roomCode] = uuid;
     // }
   });
 
@@ -51,7 +62,10 @@ io.on("connection", (socket) => {
 
   // socket.on('disconnect', () => {
   // });
+});
 
+httpServer.listen(8000, () => {
+  console.log("Server running on http://localhost:8000");
 });
 
 console.log("Server Start");
