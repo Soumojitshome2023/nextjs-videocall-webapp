@@ -17,8 +17,34 @@ Welcome to **NextGen**, a cutting-edge web application powered by [Next.js](http
 ---
 
 ## 🚀 **Getting Started**
-
 Ready to dive in? Follow these steps to get up and running:
+
+1. **Clone the repository:**
+
+    ```bash
+    git clone https://github.com/your-username/nextgen-project.git
+    cd nextgen-project
+    ```
+
+2. **Install the dependencies:**
+
+    ```bash
+    npm install
+    ```
+
+3. **Run the development server:**
+
+    ```bash
+    npm run dev
+    # Or for Yarn:
+    yarn dev
+    ```
+
+4. Open [http://localhost:3000](http://localhost:3000) in your browser to see the live site. You can start making changes by editing the `app/page.js` file—every change is automatically updated in real-time.
+
+---
+
+
 
 1. **Clone the repository:**
 
