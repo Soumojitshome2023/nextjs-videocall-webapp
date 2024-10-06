@@ -1,0 +1,137 @@
+.footer {
+  background: linear-gradient(#111827, #000000);
+  color: #fff;
+  padding: 2rem 1rem;
+  backdrop-filter: blur(10px);
+  text-align: center;
+}
+
+.footerContent {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 2rem;
+  max-width: 1200px;
+  margin: auto;
+}
+
+.quickLinks,
+.feedback {
+  flex: 1;
+  min-width: 250px;
+  max-width: 500px;
+}
+
+.quickLinks {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.column {
+  margin-bottom: 1rem;
+  width: 50%;
+}
+
+h4 {
+  margin-bottom: 0.5rem;
+  font-size: 1.5rem;
+  color: #087fff;
+}
+
+.list {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.list li {
+  margin: 0.5rem 0;
+}
+
+.list a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s;
+}
+
+.list a:hover {
+  color: #0890ff;
+}
+
+.feedback {
+  text-align: left;
+}
+
+.feedback input,
+.feedback textarea {
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border: 1px solid #000000;
+  border-radius: 4px;
+  background-color: #2f2f2f;
+}
+
+.feedback input:hover,
+.feedback textarea:hover {
+  border: 1px solid #038eff;
+}
+
+.feedback button {
+  padding: 0.5rem 2rem;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  width: fit-content;
+}
+
+.feedback button:hover {
+  background-color: #0056b3;
+}
+
+.bottom {
+  border-top: 1px solid rgb(19, 153, 255);
+  padding-top: 1rem;
+  margin-top: 1rem;
+  font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+  .footerContent {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .quickLinks,
+  .feedback {
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+
+  .quickLinks {
+    align-items: center;
+  }
+
+  .column {
+    width: 100%;
+    text-align: center;
+  }
+
+  .feedback {
+    text-align: center;
+  }
+
+  .feedback input,
+  .feedback textarea {
+    width: 80%;
+  }
+
+  .feedback button {
+    width: auto;
+  }
+}
