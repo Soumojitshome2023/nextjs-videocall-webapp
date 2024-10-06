@@ -20,6 +20,21 @@ You can start editing the page by modifying `app/page.js`. The page auto-updates
 
 This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
+---
+
+## 👀 Our Contributors
+
+- We extend our heartfelt gratitude for your invaluable contribution to our project! Your efforts play a pivotal role in elevating this project to greater heights.
+- Make sure you show some love by giving ⭐ to our repository.
+
+<div align="center">
+  <a href="https://github.com/Soumojitshome2023/nextjs-videocall-webapp">
+    <img src="https://contrib.rocks/image?repo=Soumojitshome2023/nextjs-videocall-webapp&&max=100" />
+  </a>
+</div>
+
+---
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:
