@@ -1,0 +1,9 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://soumojit-nextjs-videocall-webapp.vercel.app/
+
+# Sitemaps
+Sitemap: https://soumojit-nextjs-videocall-webapp.vercel.app/sitemap.xml
