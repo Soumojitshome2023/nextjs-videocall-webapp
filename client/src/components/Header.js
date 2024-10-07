@@ -1,5 +1,7 @@
 import Link from "next/link";
 import "./Header.css";
+import "../app/signup/page";
+import "../app/login/page";
 
 const Header = () => {
   return (
