@@ -1,7 +1,32 @@
 // const { Server } = require("socket.io");
 import { Server } from "socket.io";
+import express from 'express';
+import http from "http";
+import mongoose from "mongoose";
+import authRouter from "./routes/auth.route.js";
+import dotenv from 'dotenv';
+dotenv.config();
 
-const io = new Server(8000, {
+const dbconnect=async()=>{
+   try {
+     await mongoose.connect(process.env.MONGODB_URL);
+     console.log("connected to database");
+   } catch (error) {
+      throw error;
+   }
+}
+
+const app=express();
+const PORT=8000;
+const server=http.createServer(app);
+
+app.use(express.json());
+//auth api
+
+app.use("/api",authRouter)
+
+
+const io = new Server(server, {
   cors: true,
 });
 
@@ -10,7 +35,7 @@ const io = new Server(8000, {
 
 io.on("connection", (socket) => {
 
-  // console.log(`Socket Connected: ${socket.id}`);
+  console.log(`Socket Connected: ${socket.id}`);
   // socket.on("Send_RoomJoin_Req", ({ roomCode, uuid }) => {
 
   //   if (RoomU1[roomCode] && RoomU1[roomCode] != uuid) {
@@ -54,4 +79,8 @@ io.on("connection", (socket) => {
 
 });
 
-console.log("Server Start");
+server.listen(PORT,()=>{
+  dbconnect();
+  console.log("Server Start");
+})
+
