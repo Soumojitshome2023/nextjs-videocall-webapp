@@ -12,6 +12,7 @@
     "postbuild": "next-sitemap"
   },
   "dependencies": {
+    "@clerk/nextjs": "^5.7.1",
     "axios": "^1.7.7",
     "dotenv": "^16.3.1",
     "flowbite": "^2.2.1",
