@@ -1,9 +1,12 @@
+"use client"
 import Link from "next/link";
 import "./Header.css";
 import "../app/signup/page";
 import "../app/login/page";
+import { UserButton, useUser } from "@clerk/nextjs";
 
 const Header = () => {
+  const {user}= useUser();
   return (
     <header className="header">
       <nav className="nav">
@@ -27,18 +30,7 @@ const Header = () => {
             </Link>
           </li>
         </ul>
-        <div className="buttonContainer">
-          <Link href="/login" className="button">
-            Login
-          </Link>
-          <Link
-            href="/signup"
-            className="button"
-            style={{ marginLeft: "0.5rem" }}
-          >
-            Sign Up
-          </Link>
-        </div>
+        <UserButton/>
       </nav>
     </header>
   );
