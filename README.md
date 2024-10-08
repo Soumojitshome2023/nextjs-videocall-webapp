@@ -1,185 +1,124 @@
 
-<p align="center">
-    <img  src="https://readme-typing-svg.herokuapp.com/?color=45ffaa&size=40&width=900&height=80&lines=Welcome%20to%20Videocall%20Webapp"/>
-</p>
-<p align="center">
-  <a href="https://reactplay.io" target="_blank" style="font-size:80px"><img src="https://github.com/Ankesh-erek/nextjs-videocall-webapp\client\public\Logo.png" alt="react-play" width="300" /></a>
-</p>
 
-<p align="center">
+## 📖 Introduction
 
-<a href="https://github.com/Soumojitshome2023/nextjs-videocall-webapp"><img src="https://badges.frapsoft.com/os/v1/open-source.svg?v=103"></a> <a href="https://github.com/Soumojitshome2023/nextjs-videocall-webapp/blob/master/LICENSE"><img src="https://img.shields.io/badge/MIT-Licence-blue.svg?v=103"></a> 
+The **Next.js VideoCall WebApp** is a modern, lightweight web application built with Next.js, providing seamless real-time video communication using WebRTC. It is designed to be fast, responsive, and easy to integrate into any project requiring video conferencing functionality.
 
-![GitHub issues](https://img.shields.io/github/issues/Soumojitshome2023/nextjs-videocall-webapp)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/Soumojitshome2023/nextjs-videocall-webapp)
-![GitHub forks](https://img.shields.io/github/forks/Soumojitshome2023/nextjs-videocall-webapp)
-![GitHub Repo stars](https://img.shields.io/github/stars/Soumojitshome2023/nextjs-videocall-webapp?style=social)
-![GitHub contributors](https://img.shields.io/github/contributors/Soumojitshome2023/nextjs-videocall-webapp)
-<br/>
-![Repo Size](https://img.shields.io/github/repo-size/Soumojitshome2023/nextjs-videocall-webapp)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat)](https://egghead.io/courses/how-to-contribute-to-an-open-source-project-on-github?af=5236ad)
-<br/>
-![Visitors Count](https://api.visitorbadge.io/api/visitors?path=https%3A%2F%2Fgithub.com%2FSoumojitshome2023%2Fnextjs-videocall-webapp&label=visitors&countColor=%2337d67a&style=flat&labelStyle=upper)
-</p>
+# ![Next.js VideoCall WebApp](https://img.shields.io/badge/Next.js-10.2.0-blue?style=for-the-badge) ![License](https://img.shields.io/github/license/Soumojitshome2023/nextjs-videocall-webapp?style=for-the-badge) ![Contributions](https://img.shields.io/badge/Contributions-Welcome-brightgreen?style=for-the-badge)
 
-## Table of Contents 
-1. [Introduction](#introduction)
-2. [Live Demo](#live-demo)
-3. [Tech Stack](#tech-stack)
-4. [Features](#features)
-5. [Installation Guide](#installation-guide)
-6. [Contributing Guide](#contributing-guide)
-7. [Outreach](#outreach)
-8. [Project Admin](#project-admin)
-9. [Code of Conduct](#code-of-conduct)
-10. [Contributors](#contributors)
-11. [License](#license)
-12. [Support](#support)
+## 📋 Table of Contents
+- Introduction
+- Features
+- Tech Stack
+- Image
+- Video Demo
+- Configuration
+- Installation Guide
+- Contribution Guidelines
+- Contributors
+- License
+
+## 🖼 Screenshots
+![image](https://github.com/user-attachments/assets/d50087e1-92a7-41df-ad83-446f2c5a32d3)
+![image](https://github.com/user-attachments/assets/53f0ede5-85b8-4499-abd5-3fc5e319daa7)
+![image](https://github.com/user-attachments/assets/0c3b10f7-466c-465a-b208-223be553293c)
+![image](https://github.com/user-attachments/assets/46e33372-ad01-453d-bcb5-fdca1543fcb9)
 
 
-## ✨🎈Introduction
- **Nextjs-videocall-webapp** is a modern web application enabling real-time video communication. It’s designed for users looking to connect with others quickly and efficiently. With state-of-the-art technologies such as WebRTC and Socket.IO, users can engage in high-quality video calls that adapt to different network environments. 
-### Use Case:
- - Virtual meetings 
-- Study sessions 
-- Remote interviews
- - Social hangouts
- ### Key Functionality: 
-- Real-time video calls
- - Peer-to-peer communication 
-- Minimal latency with WebRTC 
-
-## 🖱️Live Demo 
-## <img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/People%20with%20professions/Man%20Technologist%20Medium%20Skin%20Tone.png" alt="man-techno" height=50 width=50> 
-Visit Video Calling WebApp (https://soumojit-nextjs-videocall-webapp.vercel.app/)  to see the live demo
 
 
- ## ⌨️Tech Stack
 
-- **Next.js**: React framework for server-side rendering and building scalable web applications.
-- **WebSocket**: Enables full-duplex communication between the client and server, providing real-time updates and interactions.
-- **WebRTC**: Powers peer-to-peer connections for live video and audio streaming.
-- **Node.js**: Backend runtime for scalable network applications.
-- **Styled-Components**: For creating reusable, maintainable styles within React components.
-- **Vercel**: Deployment platform for Next.js apps.
+## 🚀 Features
+- **Real-time Video and Audio Calls**: Powered by WebRTC for low-latency communication.
+- **Multi-Participant Support**: Allows multiple users to join a video call.
+- **User Authentication**: Secure sign-in process using OAuth or custom authentication.
+- **Responsive UI**: Designed to work seamlessly on desktop and mobile devices.
+- **End-to-End Encryption**: Ensuring privacy and security during calls.
 
- ## 💻Features 
+## 🛠 Tech Stack
+- **Frontend**: Next.js, React
+- **Backend**: Node.js, Express
+- **Real-time Communication**: WebRTC
+- **Styling**: Tailwind CSS
+- **Deployment**: Vercel / Heroku
 
--🔄 **Real-time Communication:** Utilizes WebRTC and Socket.IO to provide instant connections between peers. 
-- 📡 **Low Latency:** Optimized for smooth video streaming even on slower connections.
- - 🎥 **Video and Audio Support:** High-definition video and audio features. 
-- 🖥️ **Responsive UI:** Adaptive design for desktop and mobile platforms. 
-- 🔒 **Secure Communication:** All communications are peer-to-peer, ensuring privacy.
- - 📦 **Server-Side Rendering (SSR):** Fast, SEO-friendly pages thanks to Next.js.
+## ⚙️ Configuration
 
+### Development
+1. Clone the repository and install dependencies:
+    ```bash
+    git clone https://github.com/Soumojitshome2023/nextjs-videocall-webapp.git
+    cd nextjs-videocall-webapp
+    npm install
+    ```
+2. Set up environment variables:
+    - Create a `.env.local` file in the root of the project.
+    - Add the required variables (API keys, WebRTC configs, etc.).
 
- ## 🧑🏻‍💻Installation Guide 
+3. Run the app in development mode:
+    ```bash
+    npm run dev
+    ```
 
-1. *Clone this repository to your local machine:*
+### Production
+1. Build the app for production:
+    ```bash
+    npm run build
+    ```
+2. Start the production server:
+    ```bash
+    npm start
+    ```
 
-   ```
-   git clone https://github.com/your-username/nextjs-videocall-webapp.git
-   cd nextjs-videocall-webapp
-   ```
-2. *Install the required dependencies:*
-   ```
-   npm install 
-   ```
+## 🧑‍💻 Installation Guide
 
-3. *Setup environment variables*
-Create a .env.local file in the root directory and add the following values:
-   ```
-   SOCKET_IO_SERVER_URL=http://localhost:3001
-   NEXT_PUBLIC_RTC_CONFIG={"iceServers": [{"urls": "stun:stun.l.google.com:19302"}]}
-   ```
-4. Run the application
-For development:
-```
-npm run dev
-```
-For production:
-```
-npm run build
-npm start
-```
+1. **Clone the repository**:
+    ```bash
+    git clone https://github.com/Soumojitshome2023/nextjs-videocall-webapp.git
+    ```
 
- ## 🛠️ Contributing Guide
+2. **Install dependencies**:
+    ```bash
+    npm install
+    ```
 
-We welcome contributions to the **videocall webapp** project! To contribute:
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature-name`)
-3. Commit your changes (`git commit -am 'Add new feature'`)
-4. Push to the branch (`git push origin feature-name`)
-5. Create a new Pull Request
+3. **Start the development server**:
+    ```bash
+    npm run dev
+    ```
 
-Please refer to the [CONTRIBUTING.md](CONTRIBUTING.md) for more detailed information.
+4. **Access the application**:
+    Navigate to `http://localhost:3000` in your browser.
 
+## 📜 Contribution Guidelines
 
-## 💪 Outreach
+We welcome contributions! Follow these steps to contribute:
 
-HelpOps-Hub is proudly part of global initiatives engaging with passionate developers and open-source enthusiasts worldwide:
+1. Fork the repository.
+2. Create a new branch (`git checkout -b feature-branch`).
+3. Make your changes.
+4. Commit your changes (`git commit -m 'Add new feature'`).
+5. Push to the branch (`git push origin feature-branch`).
+6. Open a Pull Request.
 
- <table>
-  <tr>
-    <th>Name</th>
-    <th>Logo</th>
-    <th>Purpose</th>
-  </tr>
-  <tr>
-    <td>GSSoC'2024-Extd </td>
-    <td><img src="https://github.com/user-attachments/assets/1bd8ab15-604e-4ac9-a33e-dc753a07be23" alt="a white background with the text, GirlScript Summer of Code next to an orange flower"></td>
-    <td>  The coding period is from October 1st to October 30th, during which contributors make contributions and earn points on the platform. </td>
-  </tr>
-  <tr>
-    <td>Hacktoberfest 2024 </td>
-    <td><img src="https://github.com/user-attachments/assets/027eb349-43f2-4834-9343-1e8ba0bf54ed" alt="a black background with the official logo of Hacktoberfest 2024"></td>
-    <td>  Hacktoberfest is a month-long October event welcoming all skill levels to join the open source community, contribute quality pull requests on GitHub, and earn cool swag. </td>
-  </tr>
-</table>
+Please ensure your code follows the style and conventions of the project. Also, write tests where appropriate.
 
+## 👥 Contributors
 
-  <h1 align=center>
-	  
-  ## Project Admin 
+Thanks to all contributors!
 
-<img src="https://raw.githubusercontent.com/Tarikul-Islam-Anik/Animated-Fluent-Emojis/master/Emojis/People%20with%20professions/Man%20Technologist%20Medium%20Skin%20Tone.png" alt="man-techno" height=40 width=40> </h1>
+[![All Contributors](https://img.shields.io/badge/all_contributors-0-orange.svg?style=flat-square)](#contributors)
+[![Contributors](https://img.shields.io/github/contributors/Soumojitshome2023/nextjs-videocall-webapp?color=green)](https://github.com/Soumojitshome2023/nextjs-videocall-webapp/graphs/contributors)
 
-  <p align="center">
-  <a href="https://github.com/Soumojitshome2023"><img src="https://avatars.githubusercontent.com/Soumojitshome2023" width="17%" /></a>
-  </p>
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- All contributors will be listed here automatically -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 
-<div align="center">
-<p margin-right="10px 30px 100px 30px">
+Contributions of any kind are welcome! 🙌
 
-<a href="https://www.linkedin.com/in/soumojit-shome/" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/linked-in-alt.svg" alt="https://www.linkedin.com/in/soumojit-shome" height="30" width="40" /></a>
-</p>
-</div>
+## 📄 License
 
-## 📑Code Of Conduct
-
-This project and everyone participating in it is governed by the [Code of Conduct](https://github.com/vansh-codes/Gityzer/blob/master/CODE_OF_CONDUCT.md). By participating, you are expected to uphold this code.
-
-
-<div align="center">
-
-</div>
-
-   ## 📝License
-
-<img src="https://img.shields.io/badge/License-MIT-yellow.svg"/> <br> 
-Gityzer is licensed under the terms of the MIT License. check out <a href="./LICENSE">LICENSE</a> for details. <img width=2300/>
-
-<a name="support"></a>
-
- ## ⭐Support 
-
-- 💰 Become our [Sponsor](https://github.com/sponsors/Soumojitshome2023)!
-- ⭐ Star our Repo
-
-   # 🎉Big thanks to all the contributors! 
-
-<a href="https://github.com/Soumojitshome2023/nextjs-videocall-webapp/graphs/contributors">
-  <img src="https://contrib.rocks/image?repo=Soumojitshome2023/nextjs-videocall-webapp" />
-</a>
+This project is licensed under the MIT License. See the [LICENSE](./LICENSE) file for more details.
 
 <p align="right">(<a href="#top">Back to top⬆️</a>)</p>
+
