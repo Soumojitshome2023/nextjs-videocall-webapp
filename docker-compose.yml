@@ -1,0 +1,25 @@
+services:
+  server:
+    build: ./server
+    ports:
+      - "8000:8000"
+    volumes:
+      - logs:/app/logs
+      - ./server:/app
+      - /app/node_modules
+  client:
+    build: ./client
+    ports:
+      - "3000:3000"
+    volumes:
+        - ./client:/app
+        - /app/node_modules
+        - /app/.next
+    # stdin_open: true
+    # tty: true
+    depends_on:
+      - backend
+
+volumes:
+  data:
+  logs:
