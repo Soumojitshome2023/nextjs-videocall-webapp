@@ -1,57 +1,52 @@
-// const { Server } = require("socket.io");
 import { Server } from "socket.io";
 
 const io = new Server(8000, {
-  cors: true,
+  cors: {
+    origin: "http://your-client-url.com", // Replace with your client's URL
+    methods: ["GET", "POST"],
+  },
 });
-
-// const RoomU1 = {};
-// const RoomU2 = {};
 
 io.on("connection", (socket) => {
+  console.log(`Socket Connected: ${socket.id}`);
 
-  // console.log(`Socket Connected: ${socket.id}`);
-  // socket.on("Send_RoomJoin_Req", ({ roomCode, uuid }) => {
-
-  //   if (RoomU1[roomCode] && RoomU1[roomCode] != uuid) {
-  //     // RoomU2[roomCode] = uuid;
-  //     io.emit("User_Join", { to: RoomU1[roomCode], remote: uuid });
-  //     io.emit("User_Join", { to: uuid, remote: RoomU1[roomCode] });
-  //     // RoomU1[roomCode] = uuid;
-  //     // delete Room[roomCode];
-  //   }
-  //   else {
-  //     RoomU1[roomCode] = uuid;
-  //   }
-  // });
+  // Join room when a request is received
   socket.on("Send_RoomJoin_Req", ({ roomCode, uuid }) => {
-    // if (!RoomU1[roomCode] || RoomU1[roomCode] != uuid) {
-      io.emit("Get_Available", { from: uuid, roomCode: roomCode });
-      // RoomU1[roomCode] = uuid;
-    // }
+    if (!roomCode || !uuid) {
+      socket.emit("error", { message: "Invalid room or user ID" });
+      return;
+    }
+    socket.join(roomCode);
+    console.log(`${uuid} joined room ${roomCode}`);
+    io.to(roomCode).emit("User_Join", { uuid });
   });
 
+  // Handle availability, emit to specific users
   socket.on("Send_Available", ({ roomCode, to, uuid }) => {
-    io.emit("User_Join", { to: to, remote: uuid });
-    io.emit("User_Join", { to: uuid, remote: to });
-    // delete RoomU1[roomCode];
+    socket.to(to).emit("User_Join", { to: to, remote: uuid });
+    socket.to(uuid).emit("User_Join", { to: uuid, remote: to });
   });
 
+  // End stream event, sent to a specific user
   socket.on("EndStream", ({ to }) => {
-    io.emit("EndStream", { to });
+    socket.to(to).emit("EndStream", { to });
   });
 
+  // Handle offer sent between peers
   socket.on("Send_Offer", ({ to, from, Offer }) => {
-    io.emit("Get_Offer", { to: to, from, Offer });
+    socket.to(to).emit("Get_Offer", { from, Offer });
   });
 
+  // Handle answer sent between peers
   socket.on("Send_Ans", ({ to, from, Ans }) => {
-    io.emit("Get_Ans", { to: to, Ans });
+    socket.to(to).emit("Get_Ans", { from, Ans });
   });
 
-  // socket.on('disconnect', () => {
-  // });
-
+  // Handle disconnect
+  socket.on('disconnect', () => {
+    console.log(`Socket Disconnected: ${socket.id}`);
+    // Add any cleanup or resource freeing here if necessary
+  });
 });
 
-console.log("Server Start");
+console.log("Server Started");
