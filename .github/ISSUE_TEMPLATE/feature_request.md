@@ -1,21 +1,25 @@
 ---
-name: 🚀 Feature Request
-about: Suggest an idea or a new feature for the project
-title: "[FEATURE] - "
-labels: enhancement
+name: "🚀 Feature Request"
+about: "Suggest a new feature or enhancement for the NextJs-VideoCall-WebApp."
+title: "[Feature]: "
+labels: enhancement, feature request
 assignees: ''
+
 ---
 
-### 🚀 Feature Request
+# 🚀 Feature Request
 
-**Is your feature request related to a problem? Please describe.**
-A clear and concise description of what the problem is. Ex: I'm always frustrated when [...]
+### 📝 Feature Description
+<!-- A clear and concise description of the feature you're requesting. -->
 
-**Describe the solution you'd like**
-A clear and concise description of what you want to happen.
+### 🔧 How Will This Enhance the App?
+<!-- Explain how the requested feature will improve the user experience or functionality. -->
 
-**Describe alternatives you've considered**
-A clear and concise description of any alternative solutions or features you've considered.
+### 🎯 Use Cases
+<!-- If applicable, provide use cases that illustrate the need for the feature. -->
 
-**Additional context**
-Add any other context or screenshots about the feature request here.
+### 📦 Suggested Implementation
+<!-- If you have suggestions on how to implement this feature, describe them here. -->
+
+### 📸 Additional Context
+<!-- Add any other context, screenshots, or details that will help support your request. -->
