@@ -16,8 +16,7 @@
   margin: auto;
 }
 
-.quickLinks,
-.feedback {
+.quickLinks, .feedback {
   flex: 1;
   min-width: 250px;
   max-width: 500px;
@@ -27,11 +26,13 @@
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  flex-wrap: wrap;
 }
 
 .column {
   margin-bottom: 1rem;
-  width: 50%;
+  width: calc(33.33% - 1rem);
+  min-width: 150px;
 }
 
 h4 {
@@ -54,18 +55,25 @@ h4 {
   color: #fff;
   text-decoration: none;
   transition: color 0.3s;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
 .list a:hover {
   color: #0890ff;
 }
 
+.social-links svg {
+  width: 20px;
+  height: 20px;
+}
+
 .feedback {
   text-align: left;
 }
 
-.feedback input,
-.feedback textarea {
+.feedback input, .feedback textarea {
   width: 100%;
   margin-bottom: 1rem;
   padding: 0.5rem;
@@ -74,8 +82,7 @@ h4 {
   background-color: #2f2f2f;
 }
 
-.feedback input:hover,
-.feedback textarea:hover {
+.feedback input:hover, .feedback textarea:hover {
   border: 1px solid #038eff;
 }
 
@@ -106,31 +113,31 @@ h4 {
     flex-direction: column;
     align-items: center;
   }
-
+  
   .quickLinks,
   .feedback {
     width: 100%;
     margin-bottom: 2rem;
   }
-
+  
   .quickLinks {
     align-items: center;
   }
-
+  
   .column {
     width: 100%;
     text-align: center;
   }
-
+  
   .feedback {
     text-align: center;
   }
-
+  
   .feedback input,
   .feedback textarea {
     width: 80%;
   }
-
+  
   .feedback button {
     width: auto;
   }
