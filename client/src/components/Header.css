@@ -1,3 +1,30 @@
+.header {
+  @apply fixed top-0 left-0 right-0 z-50 px-4 py-2;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+}
+
+.header.dark {
+  background: rgba(15, 23, 42, 0.8);
+}
+
+.nav {
+  @apply max-w-7xl mx-auto flex items-center justify-between;
+}
+
+.logo {
+  @apply text-xl font-bold text-blue-600 dark:text-blue-400;
+}
+
+.navLinks {
+  @apply hidden md:flex items-center space-x-8;
+}
+
+.navLink {
+  @apply text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-200;
+}
+
+/* Updated theme toggle button styles */
 .theme-toggle-btn {
   padding: 8px;
   border-radius: 8px;
@@ -7,23 +34,25 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: background-color 0.3s ease;
+  transition: all 0.3s ease;
+  @apply text-gray-600 dark:text-gray-300;
+  @apply focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-500;
 }
 
 .theme-toggle-btn:hover {
   background-color: rgba(0, 0, 0, 0.1);
+  @apply dark:bg-white/10;
 }
 
-/* Dark mode styles */
-[data-theme='dark'] .theme-toggle-btn {
-  color: #fff;
+.theme-toggle-btn svg {
+  @apply w-5 h-5 transition-transform duration-200;
 }
 
-[data-theme='dark'] .theme-toggle-btn:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+.theme-toggle-btn:hover svg {
+  @apply rotate-12;
 }
 
-/* Ensuring the button aligns well with UserButton */
+/* Layout utilities */
 .flex {
   display: flex;
 }
@@ -34,4 +63,30 @@
 
 .gap-4 {
   gap: 1rem;
+}
+
+/* Mobile navigation styles */
+@media (max-width: 768px) {
+  .navLinks {
+    @apply absolute top-full left-0 right-0 flex-col items-start p-4 space-y-4 bg-white dark:bg-gray-900 border-t dark:border-gray-800;
+    display: none;
+  }
+
+  .navLinks.active {
+    display: flex;
+  }
+}
+
+/* User button wrapper styles */
+.user-button-wrapper {
+  @apply ml-4;
+}
+
+/* Dark mode specific styles */
+[data-theme='dark'] .theme-toggle-btn {
+  color: #fff;
+}
+
+[data-theme='dark'] .theme-toggle-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }

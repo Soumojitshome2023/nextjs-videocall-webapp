@@ -6,10 +6,21 @@ import "../app/login/page";
 import { UserButton, useUser } from "@clerk/nextjs";
 import { useTheme } from 'next-themes';
 import { Sun, Moon } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 const Header = () => {
   const { user } = useUser();
   const { theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  // Prevent hydration mismatch
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) {
+    return null;
+  }
 
   return (
     <header className="header">
@@ -38,7 +49,7 @@ const Header = () => {
           <button
             onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
             className="theme-toggle-btn"
-            aria-label="Toggle dark mode"
+            aria-label={`Switch to ${theme === 'dark' ? 'light' : 'dark'} mode`}
           >
             {theme === 'dark' ? (
               <Sun className="w-5 h-5" />
@@ -46,7 +57,9 @@ const Header = () => {
               <Moon className="w-5 h-5" />
             )}
           </button>
-          <UserButton />
+          <div className="user-button-wrapper">
+            <UserButton />
+          </div>
         </div>
       </nav>
     </header>
