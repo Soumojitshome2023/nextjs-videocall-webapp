@@ -2,27 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
-
-/* :root {
-  --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 214, 219, 220;
-  --background-end-rgb: 255, 255, 255;
+:root {
+  --foreground: #000000;
+  --background-start: #FFFFFF;
+  --background-end: #F5F5F5;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --foreground-rgb: 255, 255, 255;
-    --background-start-rgb: 0, 0, 0;
-    --background-end-rgb: 0, 0, 0;
-  }
+[class="dark"] {
+  --foreground: #FFFFFF;
+  --background-start: #0F172A;
+  --background-end: #1E293B;
 }
 
 body {
-  color: rgb(var(--foreground-rgb));
+  color: var(--foreground);
   background: linear-gradient(
-      to bottom,
-      transparent,
-      rgb(var(--background-end-rgb))
-    )
-    rgb(var(--background-start-rgb));
-} */
+    to bottom,
+    var(--background-start),
+    var(--background-end)
+  );
+  min-height: 100vh;
+}
+
+/* Add component-specific dark mode styles */
+@layer components {
+  .header {
+    @apply bg-white dark:bg-gray-900 transition-colors duration-200;
+  }
+
+  .nav {
+    @apply dark:text-white;
+  }
+
+  .logo {
+    @apply dark:text-white;
+  }
+
+  .navLink {
+    @apply dark:text-gray-300 dark:hover:text-white transition-colors duration-200;
+  }
+
+  .footer {
+    @apply bg-white dark:bg-gray-900 text-gray-600 dark:text-gray-300 transition-colors duration-200;
+  }
+}
