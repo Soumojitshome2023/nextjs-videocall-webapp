@@ -1,12 +1,12 @@
 .footer {
-  background: linear-gradient(#111827, #000000);
-  color: #fff;
-  padding: 2rem 1rem;
+  background: linear-gradient(to bottom, #111827, #000000);
+  color: #ffffff;
+  padding: 3rem 1rem;
   backdrop-filter: blur(10px);
   text-align: center;
 }
 
-.footerContent {
+.footer-content {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
@@ -16,13 +16,14 @@
   margin: auto;
 }
 
-.quickLinks, .feedback {
+.quick-links,
+.feedback {
   flex: 1;
   min-width: 250px;
   max-width: 500px;
 }
 
-.quickLinks {
+.quick-links {
   display: flex;
   flex-direction: row;
   justify-content: space-between;
@@ -30,14 +31,14 @@
 }
 
 .column {
-  margin-bottom: 1rem;
+  margin-bottom: 1.5rem;
   width: calc(33.33% - 1rem);
   min-width: 150px;
 }
 
 h4 {
-  margin-bottom: 0.5rem;
-  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+  font-size: 1.75rem;
   color: #087fff;
 }
 
@@ -48,11 +49,11 @@ h4 {
 }
 
 .list li {
-  margin: 0.5rem 0;
+  margin: 0.75rem 0;
 }
 
 .list a {
-  color: #fff;
+  color: #ffffff;
   text-decoration: none;
   transition: color 0.3s;
   display: flex;
@@ -73,28 +74,33 @@ h4 {
   text-align: left;
 }
 
-.feedback input, .feedback textarea {
+.feedback input,
+.feedback textarea {
   width: 100%;
-  margin-bottom: 1rem;
-  padding: 0.5rem;
+  margin-bottom: 1.25rem;
+  padding: 0.75rem;
   border: 1px solid #000000;
-  border-radius: 4px;
+  border-radius: 6px;
   background-color: #2f2f2f;
+  color: #ffffff;
+  font-size: 1rem;
 }
 
-.feedback input:hover, .feedback textarea:hover {
+.feedback input:hover,
+.feedback textarea:hover {
   border: 1px solid #038eff;
 }
 
 .feedback button {
-  padding: 0.5rem 2rem;
+  padding: 0.75rem 2.5rem;
   background-color: #007bff;
-  color: #fff;
+  color: #ffffff;
   border: none;
-  border-radius: 20px;
+  border-radius: 25px;
   cursor: pointer;
   transition: background-color 0.3s;
-  width: fit-content;
+  font-size: 1rem;
+  font-weight: 500;
 }
 
 .feedback button:hover {
@@ -102,25 +108,26 @@ h4 {
 }
 
 .bottom {
-  border-top: 1px solid rgb(19, 153, 255);
-  padding-top: 1rem;
-  margin-top: 1rem;
-  font-size: 0.8rem;
+  border-top: 1px solid rgba(19, 153, 255, 0.2);
+  padding-top: 1.5rem;
+  margin-top: 2rem;
+  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.7);
 }
 
 @media (max-width: 768px) {
-  .footerContent {
+  .footer-content {
     flex-direction: column;
     align-items: center;
   }
   
-  .quickLinks,
+  .quick-links,
   .feedback {
     width: 100%;
-    margin-bottom: 2rem;
+    margin-bottom: 2.5rem;
   }
   
-  .quickLinks {
+  .quick-links {
     align-items: center;
   }
   
@@ -132,13 +139,5 @@ h4 {
   .feedback {
     text-align: center;
   }
-  
-  .feedback input,
-  .feedback textarea {
-    width: 80%;
-  }
-  
-  .feedback button {
-    width: auto;
-  }
 }
+
