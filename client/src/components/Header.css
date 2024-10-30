@@ -1,71 +1,92 @@
 .header {
-  background: linear-gradient(#0d1a3b,#132b67);
-  padding: 1rem;
-  color: #fff;
-  z-index: 1;
-  position: relative;
+  @apply fixed top-0 left-0 right-0 z-50 px-4 py-2;
+  background: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+}
+
+.header.dark {
+  background: rgba(15, 23, 42, 0.8);
 }
 
 .nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
+  @apply max-w-7xl mx-auto flex items-center justify-between;
 }
 
 .logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-  text-decoration: none;
-  color: #fff;
-  cursor: default;
+  @apply text-xl font-bold text-blue-600 dark:text-blue-400;
 }
 
 .navLinks {
-  list-style-type: none;
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  margin: 0;
-  padding: 0;
-  width: 40%;
-  flex-wrap: wrap;
+  @apply hidden md:flex items-center space-x-8;
 }
 
 .navLink {
-  text-decoration: none;
-  color: #fff;
+  @apply text-gray-600 hover:text-blue-600 dark:text-gray-300 dark:hover:text-blue-400 transition-colors duration-200;
 }
 
-.navLink:hover {
-  color: #007bff;
-}
-
-.buttonContainer {
+/* Updated theme toggle button styles */
+.theme-toggle-btn {
+  padding: 8px;
+  border-radius: 8px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+  @apply text-gray-600 dark:text-gray-300;
+  @apply focus:outline-none focus:ring-2 focus:ring-blue-400 dark:focus:ring-blue-500;
+}
+
+.theme-toggle-btn:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+  @apply dark:bg-white/10;
+}
+
+.theme-toggle-btn svg {
+  @apply w-5 h-5 transition-transform duration-200;
+}
+
+.theme-toggle-btn:hover svg {
+  @apply rotate-12;
+}
+
+/* Layout utilities */
+.flex {
+  display: flex;
+}
+
+.items-center {
   align-items: center;
 }
 
-.button {
-  padding: 0.5rem 1rem;
-  background-color: #007bff;
-  color: #fff;
-  text-decoration: none;
-  border-radius: 20px;
-  transition: background-color 0.3s;
+.gap-4 {
+  gap: 1rem;
 }
 
-.button:hover {
-  background-color: #0056b3;
-}
-
+/* Mobile navigation styles */
 @media (max-width: 768px) {
-  .nav {
-    flex-direction: column;
-    align-items: center;
+  .navLinks {
+    @apply absolute top-full left-0 right-0 flex-col items-start p-4 space-y-4 bg-white dark:bg-gray-900 border-t dark:border-gray-800;
+    display: none;
   }
 
-  .navLinks {
-    margin: 1rem;
-    width: 80%;
+  .navLinks.active {
+    display: flex;
   }
+}
+
+/* User button wrapper styles */
+.user-button-wrapper {
+  @apply ml-4;
+}
+
+/* Dark mode specific styles */
+[data-theme='dark'] .theme-toggle-btn {
+  color: #fff;
+}
+
+[data-theme='dark'] .theme-toggle-btn:hover {
+  background-color: rgba(255, 255, 255, 0.1);
 }
