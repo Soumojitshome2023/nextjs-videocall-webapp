@@ -2,17 +2,19 @@ import React from "react";
 import "./Footer.css";
 
 const Footer = () => {
+  const currentYear = new Date().getFullYear();
+
   return (
     <footer className="footer">
-      <div className="footerContent">
-        <div className="quickLinks">
+      <div className="footer-content">
+        <div className="quick-links">
           <div className="column">
-            <h4>Quick Links</h4>
+            <h4 className="text-blue-600">Quick Links</h4>
             <ul className="list">
-              <li><a href="/#">Home</a></li>
-              <li><a href="/#">About</a></li>
-              <li><a href="/#">Features</a></li>
-              <li><a href="/#">Contact</a></li>
+              <li><a href="/#" className="hover:text-blue-400">Home</a></li>
+              <li><a href="/#" className="hover:text-blue-400">About</a></li>
+              <li><a href="/#" className="hover:text-blue-400">Features</a></li>
+              <li><a href="/#" className="hover:text-blue-400">Contact</a></li>
             </ul>
           </div>
           <div className="column">
@@ -56,17 +58,17 @@ const Footer = () => {
         </div>
         
         <div className="feedback">
-          <h4>Feedback</h4>
+          <h4 className="text-blue-600">Feedback</h4>
           <form>
-            <input type="text" placeholder="Your Name" required />
-            <input type="email" placeholder="Your Email" required />
-            <textarea placeholder="Your Message" required></textarea>
-            <button type="submit">Send</button>
+            <input type="text" placeholder="Your Name" required className="border-2 border-gray-300 rounded-lg p-2" />
+            <input type="email" placeholder="Your Email" required className="border-2 border-gray-300 rounded-lg p-2" />
+            <textarea placeholder="Your Message" required className="border-2 border-gray-300 rounded-lg p-2"></textarea>
+            <button type="submit" className="bg-blue-600 text-white rounded-lg p-2 hover:bg-blue-700 transition duration-200">Send</button>
           </form>
         </div>
       </div>
       <div className="bottom">
-        <p>&copy; {new Date().getFullYear()} ConnectFace. All rights reserved.</p>
+        <p>&copy; {currentYear} ConnectFace. All rights reserved.</p>
       </div>
     </footer>
   );
