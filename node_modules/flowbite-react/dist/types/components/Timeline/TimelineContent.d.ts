@@ -1,0 +1,19 @@
+import type { ComponentProps, FC } from "react";
+import type { DeepPartial } from "../../types";
+import type { FlowbiteTimelineBodyTheme } from "./TimelineBody";
+import type { FlowbiteTimelineTimeTheme } from "./TimelineTime";
+import type { FlowbiteTimelineTitleTheme } from "./TimelineTitle";
+export interface FlowbiteTimelineContentTheme {
+    root: {
+        base: string;
+        horizontal: string;
+        vertical: string;
+    };
+    time: FlowbiteTimelineTitleTheme;
+    title: FlowbiteTimelineTimeTheme;
+    body: FlowbiteTimelineBodyTheme;
+}
+export interface TimelineContentProps extends ComponentProps<"div"> {
+    theme?: DeepPartial<FlowbiteTimelineContentTheme>;
+}
+export declare const TimelineContent: FC<TimelineContentProps>;

@@ -1,0 +1,30 @@
+'use client';
+import { jsx } from 'react/jsx-runtime';
+import { twMerge } from 'tailwind-merge';
+import { mergeDeep } from '../../helpers/merge-deep.mjs';
+import { TimelineContentContext } from './TimelineContentContext.mjs';
+import { useTimelineContext } from './TimelineContext.mjs';
+import { useTimelineItemContext } from './TimelineItemContext.mjs';
+
+const TimelineContent = ({
+  children,
+  className,
+  theme: customTheme = {},
+  ...props
+}) => {
+  const { horizontal } = useTimelineContext();
+  const { theme: itemTheme } = useTimelineItemContext();
+  const theme = mergeDeep(itemTheme.content, customTheme);
+  return /* @__PURE__ */ jsx(TimelineContentContext.Provider, { value: { theme }, children: /* @__PURE__ */ jsx(
+    "div",
+    {
+      "data-testid": "timeline-content",
+      className: twMerge(theme.root.base, horizontal ? theme.root.horizontal : theme.root.vertical, className),
+      ...props,
+      children
+    }
+  ) });
+};
+
+export { TimelineContent };
+//# sourceMappingURL=TimelineContent.mjs.map
