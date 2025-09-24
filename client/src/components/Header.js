@@ -23,26 +23,20 @@ const Header = () => {
   }
 
   return (
-    <header className="header">
+    <header className={`header ${theme === 'dark' ? 'dark' : ''}`}>
       <nav className="nav">
-        <Link href="/" className="logo">
+        <Link href="/" className="logo text-2xl font-bold hover:text-blue-600 transition duration-200">
           ConnectFace
         </Link>
-        <ul className="navLinks">
+        <ul className="nav-links">
           <li>
-            <Link href="/#" className="navLink">
-              About
-            </Link>
+            <Link href="/#" className="nav-link hover:text-blue-600 transition duration-200">About</Link>
           </li>
           <li>
-            <Link href="/#" className="navLink">
-              Features
-            </Link>
+            <Link href="/#" className="nav-link hover:text-blue-600 transition duration-200">Features</Link>
           </li>
           <li>
-            <Link href="/#" className="navLink">
-              Contact
-            </Link>
+            <Link href="/#" className="nav-link hover:text-blue-600 transition duration-200">Contact</Link>
           </li>
         </ul>
         <div className="flex items-center gap-4">
