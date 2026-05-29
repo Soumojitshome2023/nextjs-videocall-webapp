@@ -20,6 +20,13 @@ export function DataSet() {
 
 const MyContextProvider = ({ children }) => {
   const data = DataSet();
+
+  useEffect(() => {
+    return () => {
+      data.socket.disconnect();
+    };
+  }, []);
+
   return (
     <div>
       <MyContext.Provider value={data}>

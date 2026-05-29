@@ -1,4 +1,3 @@
-"use client"
 import { Inter } from 'next/font/google'
 import './globals.css'
 import MyContextProvider from '@/context/SocketProvider'
@@ -9,7 +8,6 @@ import { ThemeProvider } from 'next-themes'
 
 const inter = Inter({ subsets: ['latin'] })
 
-// Metadata moved outside of client component
 export const metadata = {
   title: 'Video Calling WebApp',
   description: 'Soumojit Shome Video Calling WebApp',
@@ -22,8 +20,8 @@ export default function RootLayout({ children }) {
     <ClerkProvider>
       <html lang="en" suppressHydrationWarning>
         <head>
-          <title>{metadata.title}</title>
-          <meta name="description" content={metadata.description} />
+          <title>Video Calling WebApp</title>
+          <meta name="description" content="Soumojit Shome Video Calling WebApp" />
           <meta
             name="keywords"
             content="Video calling, WebRTC, Communication app, Video conferencing, Soumojit Shome"

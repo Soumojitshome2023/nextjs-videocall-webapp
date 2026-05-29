@@ -39,12 +39,12 @@ export default function page({ params }) {
 
                 pc.addEventListener('icecandidate', event => {
                     if (event.candidate) {
-                        console.log('ICE candidate:', event.candidate);
+                        // candidate gathered
                     }
                 });
 
                 pc.addEventListener('iceconnectionstatechange', () => {
-                    console.log('ICE connection state:', pc.iceConnectionState);
+                    // connection state changed
                 });
 
 
@@ -70,7 +70,6 @@ export default function page({ params }) {
                 };
                 resolve("ok");
             } catch (error) {
-                console.log("Error : " + error);
                 reject(error);
             }
         });
@@ -78,7 +77,6 @@ export default function page({ params }) {
 
     // =========================== Create Offer ===========================
     const createOffer = async (id) => {
-        console.log("Create Offer");
         let run = false;
         peerConnectionRef.current.onicecandidate = async (event) => {
             if (event.candidate) {
@@ -96,7 +94,6 @@ export default function page({ params }) {
     // =========================== Create Answer ===========================
     const createAnswer = useCallback(async ({ to, from, Offer }) => {
         if (to == MyUuid) {
-            console.log("Create Ans");
             const receivedOffer = JSON.parse(Offer);
             let run = false;
             peerConnectionRef.current.onicecandidate = async (event) => {
@@ -118,10 +115,9 @@ export default function page({ params }) {
     // =========================== Add Answer ===========================
     const addAnswer = useCallback(async ({ to, Ans }) => {
         if (to == MyUuid) {
-            console.log("Add Ans");
             const receivedAnswer = JSON.parse(Ans);
             if (!peerConnectionRef.current.remoteDescription) {
-                peerConnectionRef.current.setRemoteDescription(receivedAnswer);
+                await peerConnectionRef.current.setRemoteDescription(receivedAnswer);
                 setConnectionStatus(true);
             }
         }
@@ -130,8 +126,6 @@ export default function page({ params }) {
     const UserJoin = async ({ to, remote }) => {
         if (to == MyUuid) {
             setremoteUuid(remote);
-            console.log("My uuid : " + to);
-            console.log("Remote uuid : " + remote);
             // Start(remote);
             await init();
         }
